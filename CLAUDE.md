@@ -52,3 +52,5 @@
 - Do not stop after one screenshot pass
 - Do not use `transition-all`
 - Do not use default Tailwind blue/indigo as primary color
+- Do not push to GitHub without consulting me first.
+- Every Change needs to take PC and Mobile viewing into consideration
