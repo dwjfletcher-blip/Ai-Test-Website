@@ -439,65 +439,63 @@
       order: -1;
     }
 
-    /* ── Sword-gleam animated border wrapper ── */
+    /* ── Radiant glow wrapper ── */
     .featured-wrap {
       position: relative;
       border-radius: 18px;
-      padding: 1.5px;
-      overflow: hidden;
-      order: -1; /* keeps mobile ordering */
+      order: -1;
+      /* Layered glow: tight blue halo + wide soft radiance */
       box-shadow:
-        0 0 30px rgba(10,102,255,0.28),
-        0 0 70px rgba(10,102,255,0.1),
-        0 12px 40px rgba(0,0,0,0.55);
-      transition: box-shadow 0.3s ease;
+        0 0 0 1px rgba(29,161,242,0.55),
+        0 0 18px rgba(10,102,255,0.55),
+        0 0 45px rgba(10,102,255,0.28),
+        0 0 90px rgba(10,102,255,0.12),
+        0 16px 48px rgba(0,0,0,0.6);
+      animation: cardPulse 3.2s ease-in-out infinite;
     }
-    .featured-wrap:hover {
-      box-shadow:
-        0 0 45px rgba(10,102,255,0.4),
-        0 0 90px rgba(10,102,255,0.15),
-        0 20px 50px rgba(0,0,0,0.65);
+    @keyframes cardPulse {
+      0%, 100% {
+        box-shadow:
+          0 0 0 1px rgba(29,161,242,0.55),
+          0 0 18px rgba(10,102,255,0.55),
+          0 0 45px rgba(10,102,255,0.28),
+          0 0 90px rgba(10,102,255,0.12),
+          0 16px 48px rgba(0,0,0,0.6);
+      }
+      50% {
+        box-shadow:
+          0 0 0 1px rgba(29,161,242,0.75),
+          0 0 26px rgba(10,102,255,0.75),
+          0 0 65px rgba(10,102,255,0.38),
+          0 0 120px rgba(10,102,255,0.16),
+          0 16px 48px rgba(0,0,0,0.6);
+      }
     }
 
-    /* The rotating gleam — large spinning conic behind the card */
+    /* Radiant light bloom behind the card */
     .featured-wrap::before {
       content: '';
       position: absolute;
-      width: 300%; height: 300%;
-      top: -100%; left: -100%;
-      background: conic-gradient(
-        from 0deg at 50% 50%,
-        /* base steel-blue border glow */
-        rgba(10, 102, 255, 0.45) 0deg,
-        rgba(10, 102, 255, 0.45) 148deg,
-        /* lead-up shimmer */
-        rgba(80,  150, 255, 0.65) 153deg,
-        rgba(160, 210, 255, 0.85) 157deg,
-        /* white-hot sword edge */
-        rgba(230, 245, 255, 0.97) 160deg,
-        rgba(255, 255, 255, 1.00) 162deg,
-        rgba(245, 252, 255, 1.00) 164deg,
-        /* trailing shimmer */
-        rgba(160, 210, 255, 0.85) 167deg,
-        rgba(80,  150, 255, 0.65) 171deg,
-        /* back to base */
-        rgba(10, 102, 255, 0.45) 176deg,
-        rgba(10, 102, 255, 0.45) 360deg
+      inset: -40px;
+      border-radius: 28px;
+      background: radial-gradient(
+        ellipse 80% 60% at 50% 50%,
+        rgba(10,102,255,0.22) 0%,
+        rgba(10,102,255,0.08) 45%,
+        transparent 70%
       );
-      animation: swordGleam 2.6s linear infinite;
-      will-change: transform;
-      z-index: 0;
+      filter: blur(18px);
+      z-index: -1;
+      animation: radiantPulse 3.2s ease-in-out infinite;
     }
-    @keyframes swordGleam {
-      from { transform: rotate(0deg); }
-      to   { transform: rotate(360deg); }
+    @keyframes radiantPulse {
+      0%, 100% { opacity: 0.7; transform: scale(1); }
+      50%       { opacity: 1;   transform: scale(1.06); }
     }
 
-    /* card sits on top of the gleam layer */
     .featured-wrap .pricing-card.featured {
-      position: relative;
-      z-index: 1;
-      border-radius: 15px;
+      border: none;
+      border-radius: 16px;
     }
     .popular-badge {
       display: inline-flex;
