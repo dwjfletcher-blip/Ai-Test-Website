@@ -4,9 +4,18 @@
   <meta charset="UTF-8" />
   <script>
     if (history.scrollRestoration) history.scrollRestoration = 'manual';
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-    window.addEventListener('load', () => window.scrollTo({ top: 0, left: 0, behavior: 'instant' }));
-    window.addEventListener('pageshow', () => window.scrollTo({ top: 0, left: 0, behavior: 'instant' }));
+    function jumpToTop() {
+      document.documentElement.style.scrollBehavior = 'auto';
+      document.body.style.scrollBehavior = 'auto';
+      window.scrollTo(0, 0);
+      setTimeout(() => {
+        document.documentElement.style.scrollBehavior = '';
+        document.body.style.scrollBehavior = '';
+      }, 100);
+    }
+    jumpToTop();
+    window.addEventListener('load', jumpToTop);
+    window.addEventListener('pageshow', jumpToTop);
   </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Fletch Media Collective — Media That Converts</title>
