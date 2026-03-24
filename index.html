@@ -1158,6 +1158,34 @@
     /* ══════════════════════════════════════════
        DESKTOP — min-width: 768px
     ══════════════════════════════════════════ */
+    /* ══════════════════════════════════════════
+       MOBILE — max-width: 767px
+    ══════════════════════════════════════════ */
+    @media (max-width: 767px) {
+      .hero-inner { flex-direction: column-reverse; padding: var(--s4) var(--s3) var(--s5); gap: var(--s3); }
+      .hero-visual { width: 140px; height: 140px; }
+      .hero-logo-img { width: 140px; height: 140px; }
+      .hero-h1 { font-size: clamp(2rem, 9vw, 2.8rem); }
+      .hero-ctas { flex-direction: column; }
+      .hero-ctas .btn { flex: none; width: 100%; text-align: center; }
+      .hero-stats { grid-template-columns: repeat(3, 1fr); gap: var(--s1); }
+      .hero-stat-val { font-size: 1.1rem; }
+      .hero-stat-label { font-size: 0.52rem; }
+
+      .portfolio-header-row { flex-direction: column; align-items: flex-start; gap: var(--s3); }
+      .portfolio-header-row .btn { width: 100%; text-align: center; }
+
+      .work-cta-band p { font-size: 0.95rem; }
+
+      .stats-inner { grid-template-columns: repeat(2, 1fr); gap: var(--s2); }
+      .stat-number { font-size: 2rem; }
+
+      .pricing-card { padding: var(--s3); }
+      .popular-badge { font-size: 0.9rem; padding: 0.4rem 1rem; }
+
+      .cta-inner h2 { font-size: clamp(1.8rem, 9vw, 2.8rem); }
+    }
+
     @media (min-width: 768px) {
       .hamburger  { display: none; }
       .nav-links  { display: flex; }
@@ -1369,7 +1397,6 @@
         <span class="trust-client"><span class="trust-client-dot"></span>Gabrielle Design</span>
         <span class="trust-client"><span class="trust-client-dot"></span>PawChart</span>
         <span class="trust-client"><span class="trust-client-dot"></span>Prospect Finder</span>
-        <span class="trust-client"><span class="trust-client-dot"></span>Ticket Emailer</span>
         <!-- Set 2 (duplicate for seamless loop) -->
         <span class="trust-client"><span class="trust-client-dot"></span>Barnabys Restaurant</span>
         <span class="trust-client"><span class="trust-client-dot"></span>Gray Photography</span>
@@ -1378,7 +1405,6 @@
         <span class="trust-client"><span class="trust-client-dot"></span>Gabrielle Design</span>
         <span class="trust-client"><span class="trust-client-dot"></span>PawChart</span>
         <span class="trust-client"><span class="trust-client-dot"></span>Prospect Finder</span>
-        <span class="trust-client"><span class="trust-client-dot"></span>Ticket Emailer</span>
       </div>
     </div>
   </div>
