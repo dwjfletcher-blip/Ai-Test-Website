@@ -1200,6 +1200,67 @@
 </head>
 <body>
 
+  <!-- ════ SPLASH SCREEN ════ -->
+  <div id="splash-overlay" style="
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    background: #060E1C;
+    cursor: pointer;
+  ">
+    <video
+      id="splash-video"
+      src="splash.mp4"
+      autoplay
+      muted
+      playsinline
+      style="width:100%;height:100%;object-fit:cover;display:block;"
+    ></video>
+    <!-- Fade-out overlay -->
+    <div id="splash-fade" style="
+      position: absolute;
+      inset: 0;
+      background: #060E1C;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.7s ease;
+    "></div>
+  </div>
+
+  <script>
+    (function() {
+      var overlay = document.getElementById('splash-overlay');
+      var video   = document.getElementById('splash-video');
+      var fade    = document.getElementById('splash-fade');
+      var dismissed = false;
+
+      function dismiss() {
+        if (dismissed) return;
+        dismissed = true;
+        fade.style.opacity = '1';
+        setTimeout(function() {
+          overlay.style.display = 'none';
+          document.body.style.overflow = '';
+        }, 700);
+      }
+
+      // Lock scroll while splash is showing
+      document.body.style.overflow = 'hidden';
+
+      // Dismiss on click/tap
+      overlay.addEventListener('click', dismiss);
+
+      // Auto-dismiss when video ends
+      video.addEventListener('ended', dismiss);
+
+      // Fallback: dismiss after 8s in case video fails to load
+      setTimeout(dismiss, 8000);
+
+      // If video can't load, dismiss immediately
+      video.addEventListener('error', dismiss);
+    })();
+  </script>
+
   <!-- Fixed background -->
   <div style="position:fixed;inset:0;z-index:-1;background-image:url('brand_assets/bg.jpg');background-size:cover;background-position:center 30%;opacity:0.22;"></div>
 
