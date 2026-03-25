@@ -1297,6 +1297,47 @@
       .nav-links { gap: var(--s5); }
       .process-steps { grid-template-columns: repeat(4, 1fr); }
     }
+
+    /* ── FREE Drop-In Animation ─────────────────────────── */
+    .btn-label {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+      line-height: 1;
+      width: 100%;
+      gap: 0;
+    }
+    .btn-word {
+      padding: 0 0.14em;
+    }
+    .btn-free-wrap {
+      display: inline-block;
+      overflow: hidden;
+      max-width: 0;
+      padding: 0;
+      line-height: 1;
+      transition: max-width 0.55s cubic-bezier(0.34,1.56,0.64,1),
+                  padding 0.55s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .btn-free {
+      display: block;
+      font-weight: 800;
+      line-height: 1;
+      white-space: nowrap;
+      transform: translateY(-120%);
+      opacity: 0;
+      transition: transform 0.55s cubic-bezier(0.34,1.56,0.64,1),
+                  opacity 0.3s ease;
+    }
+    .btn-free-wrap.free-revealed {
+      max-width: var(--free-w, 4em);
+      padding: 0 0.14em;
+    }
+    .btn-free-wrap.free-revealed .btn-free {
+      transform: translateY(0);
+      opacity: 1;
+    }
   </style>
 </head>
 <body>
@@ -1318,7 +1359,7 @@
         <a href="#process"  class="nav-link">Process</a>
         <a href="#services" class="nav-link">Get a Quote</a>
         <a href="#about"    class="nav-link">About</a>
-        <a href="https://calendly.com/fletchmediacollective/30min" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="padding:0.6rem 1.4rem;font-size:0.72rem;">Book a Free Call</a>
+        <a href="https://calendly.com/fletchmediacollective/30min" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="padding:0.6rem 1.4rem;font-size:0.72rem;"><span class="btn-label"><span class="btn-word">Book a</span><span class="btn-free-wrap"><span class="btn-free">Free</span></span><span class="btn-word">Call</span></span></a>
       </div>
 
       <button class="hamburger" id="menuBtn" aria-label="Open menu" aria-expanded="false">
@@ -1334,7 +1375,7 @@
     <a href="#services" class="mobile-link" onclick="closeMobileMenu()">Get a Quote</a>
     <a href="#about"    class="mobile-link" onclick="closeMobileMenu()">About</a>
     <div class="mobile-cta">
-      <a href="https://calendly.com/fletchmediacollective/30min" target="_blank" rel="noopener noreferrer" class="btn btn-primary" onclick="closeMobileMenu()">Book a Free Call</a>
+      <a href="https://calendly.com/fletchmediacollective/30min" target="_blank" rel="noopener noreferrer" class="btn btn-primary" onclick="closeMobileMenu()"><span class="btn-label"><span class="btn-word">Book a</span><span class="btn-free-wrap"><span class="btn-free">Free</span></span><span class="btn-word">Call</span></span></a>
     </div>
   </div>
 
@@ -1388,7 +1429,7 @@
 
         <p class="hero-body fade-up fade-up-delay-1" style="animation-delay:1.5s;">Custom websites, brand identity, and content systems for businesses ready to grow. Transparent pricing, real results — no guesswork, no surprises.</p>
         <div class="hero-ctas fade-up fade-up-delay-2" style="animation-delay:1.7s;">
-          <a href="https://calendly.com/fletchmediacollective/30min" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Book a Free 30-Min Call</a>
+          <a href="https://calendly.com/fletchmediacollective/30min" target="_blank" rel="noopener noreferrer" class="btn btn-primary"><span class="btn-label"><span class="btn-word">Book a</span><span class="btn-free-wrap"><span class="btn-free">Free</span></span><span class="btn-word">30-Min Call</span></span></a>
           <a href="#work" class="btn btn-outline">See Our Work</a>
         </div>
         <div class="hero-stats fade-up fade-up-delay-3" style="animation-delay:1.9s;">
@@ -1438,6 +1479,46 @@
       }
       // Start counters when stats section becomes visible
       setTimeout(runCounters, 1900);
+    })();
+  </script>
+
+  <script>
+    // ── FREE drop-in on CTA buttons ────────────────────────
+    (function() {
+      function setupFreeButtons() {
+        document.querySelectorAll('.btn-free-wrap').forEach(function(wrap) {
+          var inner = wrap.querySelector('.btn-free');
+          var btn   = wrap.closest('.btn');
+          if (!btn || !inner) return;
+
+          // Temporarily expand to measure natural sizes
+          wrap.style.cssText = 'max-width:9999px;transition:none;';
+          var freeW    = inner.offsetWidth;
+          var fullBtnW = btn.offsetWidth;
+          wrap.style.cssText = '';
+
+          // Pin button width so it doesn't shrink when wrap collapses
+          btn.style.minWidth = fullBtnW + 'px';
+
+          // Store exact target width as CSS variable
+          wrap.style.setProperty('--free-w', freeW + 'px');
+
+          // Force reflow so the transition doesn't play on initial collapse
+          void wrap.offsetWidth;
+        });
+
+        setTimeout(function() {
+          document.querySelectorAll('.btn-free-wrap').forEach(function(wrap) {
+            wrap.classList.add('free-revealed');
+          });
+        }, 2700);
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', setupFreeButtons);
+      } else {
+        setupFreeButtons();
+      }
     })();
   </script>
 
