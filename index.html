@@ -1050,10 +1050,111 @@
       from { opacity: 0; transform: translateY(24px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-    .fade-up { animation: fadeUp 0.6s ease forwards; }
-    .fade-up-delay-1 { animation-delay: 0.1s; opacity: 0; }
-    .fade-up-delay-2 { animation-delay: 0.2s; opacity: 0; }
-    .fade-up-delay-3 { animation-delay: 0.3s; opacity: 0; }
+    .fade-up { animation: fadeUp 0.7s cubic-bezier(0.22,1,0.36,1) both; }
+    .fade-up-delay-1 { animation-delay: 0.15s; opacity: 0; }
+    .fade-up-delay-2 { animation-delay: 0.35s; opacity: 0; }
+    .fade-up-delay-3 { animation-delay: 0.55s; opacity: 0; }
+
+    /* ── Hero scan line ─────────────────────────── */
+    @keyframes heroScan {
+      0%   { top: -4px; opacity: 0; }
+      5%   { opacity: 1; }
+      95%  { opacity: 0.6; }
+      100% { top: 110%; opacity: 0; }
+    }
+    .hero-scan-line {
+      position: absolute;
+      left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent 0%, rgba(255,154,60,0.8) 20%, rgba(255,255,255,0.9) 50%, rgba(255,154,60,0.8) 80%, transparent 100%);
+      box-shadow: 0 0 24px 6px rgba(255,106,0,0.35);
+      animation: heroScan 0.9s cubic-bezier(0.4,0,0.6,1) 0.05s both;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    /* ── Logo entrance ──────────────────────────── */
+    @keyframes logoPop {
+      0%   { opacity: 0; transform: scale(0.3); }
+      60%  { opacity: 1; transform: scale(1.08); }
+      80%  { transform: scale(0.96); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+    @keyframes logoBurst {
+      0%   { opacity: 0.9; transform: translate(-50%,-50%) scale(0.2); }
+      100% { opacity: 0;   transform: translate(-50%,-50%) scale(2.2); }
+    }
+    .hero-logo-img {
+      animation: logoPop 0.75s cubic-bezier(0.34,1.56,0.64,1) 0.3s both;
+    }
+    .hero-burst {
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 100%; height: 100%;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,210,100,0.7) 0%, rgba(255,106,0,0.3) 40%, transparent 70%);
+      transform: translate(-50%,-50%) scale(0.2);
+      animation: logoBurst 0.7s ease-out 0.3s both;
+      pointer-events: none;
+    }
+
+    /* ── Light streaks ──────────────────────────── */
+    @keyframes streak {
+      from { transform: translateX(-110%) rotate(var(--r)); opacity: 0; }
+      10%  { opacity: var(--op); }
+      90%  { opacity: var(--op); }
+      to   { transform: translateX(210%) rotate(var(--r)); opacity: 0; }
+    }
+    .hero-streak {
+      position: absolute;
+      left: 0; right: 0;
+      height: 1.5px;
+      background: linear-gradient(90deg, transparent, rgba(255,140,0,var(--op)), transparent);
+      animation: streak var(--dur) cubic-bezier(0.4,0,0.6,1) var(--delay) both;
+      pointer-events: none;
+    }
+
+    /* ── Word-by-word headline ───────────────────── */
+    @keyframes wordPop {
+      0%   { opacity: 0; transform: translateY(36px) scale(0.82); }
+      70%  { transform: translateY(-4px) scale(1.02); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .hero-word {
+      display: inline-block;
+      opacity: 0;
+      animation: wordPop 0.55s cubic-bezier(0.34,1.56,0.64,1) both;
+      margin-right: 0.22em;
+    }
+    .hero-word:last-child { margin-right: 0; }
+
+    /* ── Badge entrance ─────────────────────────── */
+    @keyframes badgeIn {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero-badge {
+      animation: badgeIn 0.5s cubic-bezier(0.22,1,0.36,1) 0.25s both;
+    }
+
+    /* ── Particles ──────────────────────────────── */
+    @keyframes particleRise {
+      0%   { transform: translateY(0)   translateX(0)   scale(1);   opacity: 0; }
+      10%  { opacity: var(--pop); }
+      90%  { opacity: var(--pop); }
+      100% { transform: translateY(var(--rise)) translateX(var(--drift)) scale(0.4); opacity: 0; }
+    }
+    .hero-particle {
+      position: absolute;
+      bottom: 0;
+      width: var(--sz);
+      height: var(--sz);
+      border-radius: 50%;
+      background: rgba(255, var(--g), 0, 0.7);
+      box-shadow: 0 0 calc(var(--sz) * 2.5) rgba(255,106,0,0.5);
+      animation: particleRise var(--dur) ease-in-out var(--delay) infinite;
+      pointer-events: none;
+    }
 
     ::-webkit-scrollbar       { width: 5px; }
     ::-webkit-scrollbar-track { background: var(--navy-dark); }
@@ -1200,118 +1301,6 @@
 </head>
 <body>
 
-  <!-- ════ SPLASH SCREEN ════ -->
-  <style>
-    @keyframes splash-slide-in {
-      from { transform: translateY(100%); }
-      to   { transform: translateY(0); }
-    }
-    #splash-overlay {
-      animation: splash-slide-in 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-    }
-    #splash-skip {
-      opacity: 0;
-      transition: opacity 0.4s ease, transform 0.25s cubic-bezier(0.34,1.56,0.64,1), background 0.2s ease;
-    }
-    #splash-skip.visible { opacity: 1; }
-    #splash-skip:hover { transform: scale(1.05); background: rgba(255,106,0,0.18) !important; }
-    #splash-skip:active { transform: scale(0.97); }
-  </style>
-
-  <div id="splash-overlay" style="
-    position: fixed;
-    inset: 0;
-    z-index: 99999;
-    background: #060E1C;
-    will-change: transform;
-  ">
-    <video
-      id="splash-video"
-      src="splash.mp4"
-      autoplay
-      muted
-      playsinline
-      style="width:100%;height:100%;object-fit:cover;display:block;"
-    ></video>
-
-    <!-- Skip button -->
-    <button id="splash-skip" style="
-      position: absolute;
-      top: 24px;
-      right: 28px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(255,106,0,0.1);
-      border: 1px solid rgba(255,106,0,0.3);
-      border-radius: 100px;
-      color: rgba(255,255,255,0.7);
-      font-family: 'Roboto Mono', monospace;
-      font-size: 11px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      padding: 8px 16px;
-      cursor: pointer;
-      z-index: 10;
-    ">
-      <span>Skip</span>
-      <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-        <path d="M2 6h8M6 2l4 4-4 4" stroke="rgba(255,154,60,0.8)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </button>
-
-    <!-- Fade-out overlay -->
-    <div id="splash-fade" style="
-      position: absolute;
-      inset: 0;
-      background: #060E1C;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.6s ease;
-    "></div>
-  </div>
-
-  <script>
-    (function() {
-      var overlay = document.getElementById('splash-overlay');
-      var video   = document.getElementById('splash-video');
-      var fade    = document.getElementById('splash-fade');
-      var skip    = document.getElementById('splash-skip');
-      var dismissed = false;
-
-      function dismiss() {
-        if (dismissed) return;
-        dismissed = true;
-        overlay.style.cursor = 'default';
-        fade.style.opacity = '1';
-        setTimeout(function() {
-          overlay.style.display = 'none';
-          document.body.style.overflow = '';
-        }, 600);
-      }
-
-      // Lock scroll while splash is showing
-      document.body.style.overflow = 'hidden';
-
-      // Show skip button after 1.5s
-      setTimeout(function() { skip.classList.add('visible'); }, 1500);
-
-      // Skip button click
-      skip.addEventListener('click', function(e) { e.stopPropagation(); dismiss(); });
-
-      // Click anywhere else also dismisses
-      overlay.addEventListener('click', dismiss);
-
-      // Auto-dismiss when video ends
-      video.addEventListener('ended', dismiss);
-
-      // Fallback: dismiss after 8s
-      setTimeout(dismiss, 8000);
-
-      // If video fails to load, dismiss immediately
-      video.addEventListener('error', dismiss);
-    })();
-  </script>
 
   <!-- Fixed background -->
   <div style="position:fixed;inset:0;z-index:-1;background-image:url('brand_assets/bg.jpg');background-size:cover;background-position:center 30%;opacity:0.22;"></div>
@@ -1351,13 +1340,35 @@
 
 
   <!-- ════ HERO ════ -->
-  <section class="hero" id="hero">
+  <section class="hero" id="hero" style="overflow:hidden;">
+    <!-- Scan line -->
+    <div class="hero-scan-line"></div>
+
+    <!-- Light streaks -->
+    <div class="hero-streak" style="top:22%;--r:-6deg;--op:0.45;--dur:1.1s;--delay:0.08s;"></div>
+    <div class="hero-streak" style="top:45%;--r:-4deg;--op:0.3;--dur:0.95s;--delay:0.22s;"></div>
+    <div class="hero-streak" style="top:68%;--r:-7deg;--op:0.35;--dur:1.2s;--delay:0.14s;"></div>
+    <div class="hero-streak" style="top:80%;--r:-3deg;--op:0.2;--dur:1.0s;--delay:0.35s;"></div>
+
+    <!-- Particles -->
+    <div class="hero-particle" style="left:8%;  --sz:3px; --g:120;--pop:0.7;--rise:-340px;--drift:28px; --dur:3.8s;--delay:0.6s;"></div>
+    <div class="hero-particle" style="left:15%; --sz:2px; --g:80; --pop:0.5;--rise:-280px;--drift:-18px;--dur:4.2s;--delay:1.1s;"></div>
+    <div class="hero-particle" style="left:24%; --sz:4px; --g:140;--pop:0.6;--rise:-400px;--drift:40px; --dur:3.5s;--delay:0.3s;"></div>
+    <div class="hero-particle" style="left:35%; --sz:2px; --g:90; --pop:0.4;--rise:-320px;--drift:-30px;--dur:4.6s;--delay:1.8s;"></div>
+    <div class="hero-particle" style="left:55%; --sz:3px; --g:110;--pop:0.6;--rise:-380px;--drift:22px; --dur:3.9s;--delay:0.9s;"></div>
+    <div class="hero-particle" style="left:68%; --sz:2px; --g:70; --pop:0.4;--rise:-300px;--drift:-25px;--dur:4.4s;--delay:0.5s;"></div>
+    <div class="hero-particle" style="left:78%; --sz:3px; --g:130;--pop:0.5;--rise:-360px;--drift:35px; --dur:4.0s;--delay:1.4s;"></div>
+    <div class="hero-particle" style="left:88%; --sz:2px; --g:85; --pop:0.45;--rise:-290px;--drift:-20px;--dur:3.7s;--delay:2.0s;"></div>
+    <div class="hero-particle" style="left:4%;  --sz:2px; --g:100;--pop:0.35;--rise:-260px;--drift:15px; --dur:5.0s;--delay:2.5s;"></div>
+    <div class="hero-particle" style="left:92%; --sz:3px; --g:120;--pop:0.5;--rise:-350px;--drift:-32px;--dur:4.1s;--delay:1.6s;"></div>
+
     <div class="hero-ring" style="width:500px;height:500px;"></div>
     <div class="hero-ring" style="width:800px;height:800px;opacity:0.5;"></div>
     <div class="hero-ring" style="width:1100px;height:1100px;opacity:0.25;"></div>
 
     <div class="hero-inner">
       <div class="hero-visual">
+        <div class="hero-burst"></div>
         <div class="hero-glow-bg"></div>
         <div class="hero-glow-ring" style="width:380px;height:380px;"></div>
         <div class="hero-glow-ring" style="width:440px;height:440px;opacity:0.4;animation-delay:1s;"></div>
@@ -1369,31 +1380,66 @@
           <div class="hero-badge-dot"></div>
           <span class="label" style="font-size:0.65rem;">Now Accepting New Clients</span>
         </div>
-        <h1 class="hero-h1 fade-up">We Build Websites<br />That <span class="grad-text">Win Clients.</span></h1>
-        <p class="hero-body fade-up fade-up-delay-1">Custom websites, brand identity, and content systems for businesses ready to grow. Transparent pricing, real results — no guesswork, no surprises.</p>
-        <div class="hero-ctas fade-up fade-up-delay-2">
+
+        <h1 class="hero-h1" style="overflow:visible;">
+          <span class="hero-word" style="animation-delay:0.55s;">We</span><span class="hero-word" style="animation-delay:0.7s;">Build</span><span class="hero-word" style="animation-delay:0.85s;">Websites</span><br style="display:block;content:'';"/>
+          <span class="hero-word" style="animation-delay:1.0s;">That</span> <span class="hero-word grad-text" style="animation-delay:1.15s;">Win</span> <span class="hero-word grad-text" style="animation-delay:1.3s;">Clients.</span>
+        </h1>
+
+        <p class="hero-body fade-up fade-up-delay-1" style="animation-delay:1.5s;">Custom websites, brand identity, and content systems for businesses ready to grow. Transparent pricing, real results — no guesswork, no surprises.</p>
+        <div class="hero-ctas fade-up fade-up-delay-2" style="animation-delay:1.7s;">
           <a href="https://calendly.com/fletchmediacollective/30min" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Book a Free 30-Min Call</a>
           <a href="#work" class="btn btn-outline">See Our Work</a>
         </div>
-        <div class="hero-stats fade-up fade-up-delay-3">
+        <div class="hero-stats fade-up fade-up-delay-3" style="animation-delay:1.9s;">
           <div>
-            <div class="hero-stat-val">50+</div>
+            <div class="hero-stat-val" data-count="50" data-suffix="+">50+</div>
             <div class="hero-stat-label">Sites Launched</div>
           </div>
           <div class="stat-divider"></div>
           <div>
-            <div class="hero-stat-val">3M+</div>
+            <div class="hero-stat-val" data-count="3" data-suffix="M+">3M+</div>
             <div class="hero-stat-label">Views Generated</div>
           </div>
           <div class="stat-divider"></div>
           <div>
-            <div class="hero-stat-val">98%</div>
+            <div class="hero-stat-val" data-count="98" data-suffix="%">98%</div>
             <div class="hero-stat-label">Client Retention</div>
           </div>
         </div>
       </div>
     </div>
   </section>
+
+  <script>
+    // ── Stat counters ──────────────────────────────────────────────
+    (function() {
+      var stats = document.querySelectorAll('.hero-stat-val[data-count]');
+      var started = false;
+      function runCounters() {
+        if (started) return;
+        started = true;
+        stats.forEach(function(el) {
+          var target  = parseInt(el.dataset.count, 10);
+          var suffix  = el.dataset.suffix || '';
+          var start   = 0;
+          var duration = 1200;
+          var startTime = null;
+          function step(ts) {
+            if (!startTime) startTime = ts;
+            var progress = Math.min((ts - startTime) / duration, 1);
+            // ease-out cubic
+            var eased = 1 - Math.pow(1 - progress, 3);
+            el.textContent = Math.round(start + eased * (target - start)) + suffix;
+            if (progress < 1) requestAnimationFrame(step);
+          }
+          requestAnimationFrame(step);
+        });
+      }
+      // Start counters when stats section becomes visible
+      setTimeout(runCounters, 1900);
+    })();
+  </script>
 
 
   <!-- ════ TRUST STRIP ════ -->
