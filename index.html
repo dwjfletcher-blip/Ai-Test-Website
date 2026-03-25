@@ -1201,12 +1201,29 @@
 <body>
 
   <!-- ════ SPLASH SCREEN ════ -->
+  <style>
+    @keyframes splash-slide-in {
+      from { transform: translateY(100%); }
+      to   { transform: translateY(0); }
+    }
+    #splash-overlay {
+      animation: splash-slide-in 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+    #splash-skip {
+      opacity: 0;
+      transition: opacity 0.4s ease, transform 0.25s cubic-bezier(0.34,1.56,0.64,1), background 0.2s ease;
+    }
+    #splash-skip.visible { opacity: 1; }
+    #splash-skip:hover { transform: scale(1.05); background: rgba(255,106,0,0.18) !important; }
+    #splash-skip:active { transform: scale(0.97); }
+  </style>
+
   <div id="splash-overlay" style="
     position: fixed;
     inset: 0;
     z-index: 99999;
     background: #060E1C;
-    cursor: pointer;
+    will-change: transform;
   ">
     <video
       id="splash-video"
@@ -1216,6 +1233,33 @@
       playsinline
       style="width:100%;height:100%;object-fit:cover;display:block;"
     ></video>
+
+    <!-- Skip button -->
+    <button id="splash-skip" style="
+      position: absolute;
+      top: 24px;
+      right: 28px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,106,0,0.1);
+      border: 1px solid rgba(255,106,0,0.3);
+      border-radius: 100px;
+      color: rgba(255,255,255,0.7);
+      font-family: 'Roboto Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 8px 16px;
+      cursor: pointer;
+      z-index: 10;
+    ">
+      <span>Skip</span>
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+        <path d="M2 6h8M6 2l4 4-4 4" stroke="rgba(255,154,60,0.8)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+
     <!-- Fade-out overlay -->
     <div id="splash-fade" style="
       position: absolute;
@@ -1223,7 +1267,7 @@
       background: #060E1C;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.7s ease;
+      transition: opacity 0.6s ease;
     "></div>
   </div>
 
@@ -1232,31 +1276,39 @@
       var overlay = document.getElementById('splash-overlay');
       var video   = document.getElementById('splash-video');
       var fade    = document.getElementById('splash-fade');
+      var skip    = document.getElementById('splash-skip');
       var dismissed = false;
 
       function dismiss() {
         if (dismissed) return;
         dismissed = true;
+        overlay.style.cursor = 'default';
         fade.style.opacity = '1';
         setTimeout(function() {
           overlay.style.display = 'none';
           document.body.style.overflow = '';
-        }, 700);
+        }, 600);
       }
 
       // Lock scroll while splash is showing
       document.body.style.overflow = 'hidden';
 
-      // Dismiss on click/tap
+      // Show skip button after 1.5s
+      setTimeout(function() { skip.classList.add('visible'); }, 1500);
+
+      // Skip button click
+      skip.addEventListener('click', function(e) { e.stopPropagation(); dismiss(); });
+
+      // Click anywhere else also dismisses
       overlay.addEventListener('click', dismiss);
 
       // Auto-dismiss when video ends
       video.addEventListener('ended', dismiss);
 
-      // Fallback: dismiss after 8s in case video fails to load
+      // Fallback: dismiss after 8s
       setTimeout(dismiss, 8000);
 
-      // If video can't load, dismiss immediately
+      // If video fails to load, dismiss immediately
       video.addEventListener('error', dismiss);
     })();
   </script>
