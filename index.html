@@ -6,11 +6,11 @@
     if (history.scrollRestoration) history.scrollRestoration = 'manual';
     function jumpToTop() {
       document.documentElement.style.scrollBehavior = 'auto';
-      document.body.style.scrollBehavior = 'auto';
+      if (document.body) document.body.style.scrollBehavior = 'auto';
       window.scrollTo(0, 0);
       setTimeout(() => {
         document.documentElement.style.scrollBehavior = '';
-        document.body.style.scrollBehavior = '';
+        if (document.body) document.body.style.scrollBehavior = '';
       }, 100);
     }
     jumpToTop();
@@ -18,8 +18,19 @@
     window.addEventListener('pageshow', jumpToTop);
   </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/webp" href="brand_assets/logo.webp" />
   <title>Fletch Media Collective — Media That Converts</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <meta name="description" content="Fletch Media Collective builds custom websites, brand identity, and content systems for local businesses ready to grow. Fixed pricing, fast turnaround, real results." />
+  <link rel="canonical" href="https://ai-test-website-rho.vercel.app/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Fletch Media Collective — Media That Converts" />
+  <meta property="og:description" content="Custom websites, brand identity, and content systems for businesses ready to grow. Transparent pricing, real results — no guesswork, no surprises." />
+  <meta property="og:url" content="https://ai-test-website-rho.vercel.app/" />
+  <meta property="og:image" content="https://ai-test-website-rho.vercel.app/brand_assets/logo.webp" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Fletch Media Collective — Media That Converts" />
+  <meta name="twitter:description" content="Custom websites, brand identity, and content systems for businesses ready to grow." />
+  <meta name="twitter:image" content="https://ai-test-website-rho.vercel.app/brand_assets/logo.webp" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Roboto:wght@300;400;500&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -131,6 +142,14 @@
     .btn-primary:hover  { transform: translateY(-3px) scale(1.02); box-shadow: 0 0 0 1px rgba(255,106,0,0.6) inset, 0 0 36px rgba(255,106,0,0.6), 0 8px 28px rgba(255,106,0,0.4), 0 16px 50px rgba(0,0,0,0.55); }
     .btn-primary:active { transform: translateY(0) scale(0.98); }
     .btn-primary:focus-visible { outline: 2px solid var(--amber-light); outline-offset: 4px; }
+    @keyframes btnPulse {
+      0%, 100% { transform: scale(1); }
+      50%       { transform: scale(1.1); }
+    }
+    .btn-pulse {
+      animation: btnPulse 1.4s ease-in-out infinite;
+    }
+    .btn-pulse:hover { animation-play-state: paused; }
     .btn-outline {
       background: transparent;
       color: #fff;
@@ -171,6 +190,7 @@
       text-decoration: none;
       flex-shrink: 0;
     }
+    .nav-logo:focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; border-radius: 4px; }
     .nav-logo img {
       height: 36px; width: 36px;
       object-fit: cover;
@@ -537,7 +557,10 @@
     .p-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(6,14,28,0.96) 0%, rgba(255,106,0,0.04) 55%, transparent 100%);
+      background:
+        linear-gradient(to top, rgba(6,14,28,0.96) 0%, rgba(255,106,0,0.04) 55%, transparent 100%),
+        rgba(10,26,47,0.4);
+      background-blend-mode: normal, multiply;
     }
     .p-info {
       position: absolute;
@@ -983,6 +1006,7 @@
       text-decoration: none;
       margin-bottom: var(--s2);
     }
+    .footer-logo:focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; border-radius: 4px; }
     .footer-logo img {
       height: 40px; width: 40px;
       object-fit: cover;
@@ -1056,21 +1080,29 @@
     .fade-up-delay-3 { animation-delay: 0.55s; opacity: 0; }
 
     /* ── Hero scan line ─────────────────────────── */
+    /* Animates transform only (not top/height) to avoid triggering layout/CLS. */
     @keyframes heroScan {
-      0%   { top: -4px; opacity: 0; }
+      0%   { transform: translateY(-4px); opacity: 0; }
       5%   { opacity: 1; }
       95%  { opacity: 0.6; }
-      100% { top: 110%; opacity: 0; }
+      100% { transform: translateY(110%); opacity: 0; }
     }
     .hero-scan-line {
       position: absolute;
       left: 0; right: 0;
+      top: 0;
+      height: 100%;
+      pointer-events: none;
+      z-index: 10;
+      animation: heroScan 0.9s cubic-bezier(0.4,0,0.6,1) 0.05s both;
+    }
+    .hero-scan-line::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
       height: 2px;
       background: linear-gradient(90deg, transparent 0%, rgba(255,154,60,0.8) 20%, rgba(255,255,255,0.9) 50%, rgba(255,154,60,0.8) 80%, transparent 100%);
       box-shadow: 0 0 24px 6px rgba(255,106,0,0.35);
-      animation: heroScan 0.9s cubic-bezier(0.4,0,0.6,1) 0.05s both;
-      pointer-events: none;
-      z-index: 10;
     }
 
     /* ── Logo entrance ──────────────────────────── */
@@ -1154,6 +1186,165 @@
       box-shadow: 0 0 calc(var(--sz) * 2.5) rgba(255,106,0,0.5);
       animation: particleRise var(--dur) ease-in-out var(--delay) infinite;
       pointer-events: none;
+    }
+
+    /* ══════════════════════════════════════════
+       CONTACT FORM
+    ══════════════════════════════════════════ */
+    .contact-section {
+      padding: var(--s7) var(--s3);
+      background:
+        radial-gradient(ellipse 80% 60% at 30% 50%, rgba(255,106,0,0.06) 0%, transparent 65%),
+        rgba(6,14,28,0.9);
+      border-top: 1px solid rgba(255,255,255,0.04);
+    }
+    .contact-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: var(--s6);
+    }
+    .contact-header { text-align: center; }
+    .contact-header h2 {
+      font-size: clamp(1.8rem, 6vw, 3rem);
+      font-weight: 900;
+      margin: var(--s1) 0 var(--s2);
+    }
+    .contact-header p {
+      font-size: 0.97rem;
+      color: var(--muted);
+      max-width: 500px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+    .contact-body {
+      display: flex;
+      flex-direction: column;
+      gap: var(--s4);
+    }
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: var(--s3);
+    }
+    .contact-detail {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    .contact-detail-icon {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      background: rgba(255,106,0,0.1);
+      border: 1px solid rgba(255,106,0,0.22);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      color: var(--amber);
+    }
+    .contact-detail-text strong {
+      display: block;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.82rem;
+      letter-spacing: 0.04em;
+      color: var(--white);
+      margin-bottom: 0.2rem;
+    }
+    .contact-detail-text a,
+    .contact-detail-text span {
+      font-size: 0.87rem;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .contact-detail-text a:hover { color: var(--amber-light); }
+
+    .contact-form-card {
+      background: linear-gradient(140deg, rgba(13,34,68,0.65) 0%, rgba(6,14,28,0.9) 100%);
+      border: 1px solid rgba(255,106,0,0.14);
+      border-radius: 20px;
+      padding: var(--s4);
+    }
+    .form-row {
+      display: flex;
+      flex-direction: column;
+      gap: var(--s2);
+      margin-bottom: var(--s2);
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      flex: 1;
+    }
+    .form-label {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--amber-light);
+    }
+    .form-input,
+    .form-select,
+    .form-textarea {
+      width: 100%;
+      background: rgba(6,14,28,0.7);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 10px;
+      padding: 0.875rem 1rem;
+      color: var(--white);
+      font-family: 'Roboto', sans-serif;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    .form-input::placeholder,
+    .form-textarea::placeholder { color: rgba(107,141,181,0.5); }
+    .form-input:focus,
+    .form-select:focus,
+    .form-textarea:focus {
+      border-color: rgba(255,106,0,0.5);
+      box-shadow: 0 0 0 3px rgba(255,106,0,0.08);
+    }
+    .form-select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23FF9A3C' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      padding-right: 2.5rem;
+      cursor: pointer;
+    }
+    .form-select option { background: #0A1A2F; color: var(--white); }
+    .form-textarea { resize: vertical; min-height: 120px; }
+    .form-submit {
+      width: 100%;
+      margin-top: var(--s1);
+    }
+    .contact-success {
+      display: none;
+      text-align: center;
+      padding: var(--s5) var(--s3);
+    }
+    .contact-success-icon {
+      width: 60px; height: 60px;
+      border-radius: 50%;
+      background: rgba(255,106,0,0.12);
+      border: 1px solid rgba(255,106,0,0.3);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto var(--s3);
+      color: var(--amber);
+    }
+    .contact-success h3 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      margin-bottom: 0.75rem;
+    }
+    .contact-success p {
+      font-size: 0.9rem;
+      color: var(--muted);
     }
 
     ::-webkit-scrollbar       { width: 5px; }
@@ -1283,6 +1474,11 @@
       }
       .cta-btns .btn { padding: 1rem 2.75rem; }
 
+      .contact-body { flex-direction: row; align-items: flex-start; }
+      .contact-info { flex: 0 0 260px; }
+      .contact-form-card { flex: 1; }
+      .form-row { flex-direction: row; }
+
       .footer-grid { flex-direction: row; gap: var(--s7); }
       .footer-grid > div:first-child { flex: 2; }
       .footer-grid > div:not(:first-child) { flex: 1; }
@@ -1345,22 +1541,23 @@
 
 
   <!-- Fixed background -->
-  <div style="position:fixed;inset:0;z-index:-1;background-image:url('brand_assets/bg.jpg');background-size:cover;background-position:center 30%;opacity:0.22;"></div>
+  <div style="position:fixed;inset:0;z-index:-1;background-image:url('brand_assets/bg.webp');background-size:cover;background-position:center 30%;opacity:0.22;"></div>
 
   <!-- ════ NAV ════ -->
   <nav class="nav">
     <div class="nav-inner">
-      <a href="#" class="nav-logo">
-        <img src="brand_assets/logo.png" alt="Fletch Media Collective" />
+      <a href="#hero" class="nav-logo" aria-label="Fletch Media Collective — back to top">
+        <img src="brand_assets/logo.webp" alt="Fletch Media Collective" />
         <div class="nav-wordmark">FLETCH<span>Media Collective</span></div>
       </a>
 
       <div class="nav-links">
-        <a href="#work"     class="nav-link">Work</a>
-        <a href="#process"  class="nav-link">Process</a>
-        <a href="#services" class="nav-link">Get a Quote</a>
-        <a href="#about"    class="nav-link">About</a>
-        <a href="https://calendly.com/fletchmediacollective/30min" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="padding:0.6rem 1.4rem;font-size:0.72rem;"><span class="btn-label"><span class="btn-word">Book a</span><span class="btn-free-wrap"><span class="btn-free">Free&nbsp;</span></span><span class="btn-word">Call</span></span></a>
+        <a href="#work"         class="nav-link">Work</a>
+        <a href="#process"      class="nav-link">Process</a>
+        <a href="#services"     class="nav-link">Get a Quote</a>
+        <a href="#about"        class="nav-link">About</a>
+        <a href="#contact-form" class="nav-link">Contact</a>
+        <a href="https://calendly.com/fletchmediacollective/30min" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-pulse" style="padding:0.6rem 1.4rem;font-size:0.72rem;"><span class="btn-label"><span class="btn-word">Book a</span><span class="btn-free-wrap"><span class="btn-free">Free&nbsp;</span></span><span class="btn-word">Call</span></span></a>
       </div>
 
       <button class="hamburger" id="menuBtn" aria-label="Open menu" aria-expanded="false">
@@ -1371,10 +1568,11 @@
 
   <!-- Mobile drawer -->
   <div class="mobile-menu" id="mobileMenu" role="navigation">
-    <a href="#work"     class="mobile-link" onclick="closeMobileMenu()">Work</a>
-    <a href="#process"  class="mobile-link" onclick="closeMobileMenu()">Process</a>
-    <a href="#services" class="mobile-link" onclick="closeMobileMenu()">Get a Quote</a>
-    <a href="#about"    class="mobile-link" onclick="closeMobileMenu()">About</a>
+    <a href="#work"         class="mobile-link" onclick="closeMobileMenu()">Work</a>
+    <a href="#process"      class="mobile-link" onclick="closeMobileMenu()">Process</a>
+    <a href="#services"     class="mobile-link" onclick="closeMobileMenu()">Get a Quote</a>
+    <a href="#about"        class="mobile-link" onclick="closeMobileMenu()">About</a>
+    <a href="#contact-form" class="mobile-link" onclick="closeMobileMenu()">Contact</a>
     <div class="mobile-cta">
       <a href="https://calendly.com/fletchmediacollective/30min" target="_blank" rel="noopener noreferrer" class="btn btn-primary" onclick="closeMobileMenu()"><span class="btn-label"><span class="btn-word">Book a</span><span class="btn-free-wrap"><span class="btn-free">Free&nbsp;</span></span><span class="btn-word">Call</span></span></a>
     </div>
@@ -1414,7 +1612,7 @@
         <div class="hero-glow-bg"></div>
         <div class="hero-glow-ring" style="width:380px;height:380px;"></div>
         <div class="hero-glow-ring" style="width:440px;height:440px;opacity:0.4;animation-delay:1s;"></div>
-        <img class="hero-logo-img" src="brand_assets/logo.png" alt="Fletch Media Collective Logo" />
+        <img class="hero-logo-img" src="brand_assets/logo.webp" alt="Fletch Media Collective Logo" />
       </div>
 
       <div class="hero-text">
@@ -1430,7 +1628,7 @@
 
         <p class="hero-body fade-up fade-up-delay-1" style="animation-delay:1.5s;">Custom websites, brand identity, and content systems for businesses ready to grow. Transparent pricing, real results — no guesswork, no surprises.</p>
         <div class="hero-ctas fade-up fade-up-delay-2" style="animation-delay:1.7s;">
-          <a href="https://calendly.com/fletchmediacollective/30min" target="_blank" rel="noopener noreferrer" class="btn btn-primary"><span class="btn-label"><span class="btn-word">Book a</span><span class="btn-free-wrap"><span class="btn-free">Free&nbsp;</span></span><span class="btn-word">30-Min Call</span></span></a>
+          <a href="https://calendly.com/fletchmediacollective/30min" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-pulse"><span class="btn-label"><span class="btn-word">Book a</span><span class="btn-free-wrap"><span class="btn-free">Free&nbsp;</span></span><span class="btn-word">30-Min Call</span></span></a>
           <a href="#work" class="btn btn-outline">See Our Work</a>
         </div>
         <div class="hero-stats fade-up fade-up-delay-3" style="animation-delay:1.9s;">
@@ -1567,7 +1765,7 @@
       <div class="portfolio-grid-mobile">
         <a href="https://pawchart-lac.vercel.app/" target="_blank" rel="noopener" class="p-item">
           <div class="p-item-inner">
-            <img src="pawchart-screenshot.png" alt="PawChart Web App" />
+            <img src="pawchart-screenshot.webp" alt="PawChart Web App" />
             <div class="p-overlay"></div>
             <div class="p-info">
               <span class="p-tag">SaaS Prototype</span>
@@ -1578,7 +1776,7 @@
         </a>
         <a href="https://the-enchanted-rosie.vercel.app/" target="_blank" rel="noopener" class="p-item">
           <div class="p-item-inner">
-            <img src="enchanted-rosie-screenshot.png" alt="Enchanted Rosie" style="object-position:50% 5%;" />
+            <img src="enchanted-rosie-screenshot.webp" alt="Enchanted Rosie" style="object-position:50% 5%;" />
             <div class="p-overlay"></div>
             <div class="p-info">
               <span class="p-tag">E-Commerce</span>
@@ -1589,7 +1787,7 @@
         </a>
         <a href="https://job-hunter-theta-tan.vercel.app/" target="_blank" rel="noopener" class="p-item">
           <div class="p-item-inner">
-            <img src="job-hunter-screenshot.png" alt="Job Hunter" />
+            <img src="job-hunter-screenshot.webp" alt="Job Hunter" />
             <div class="p-overlay"></div>
             <div class="p-info">
               <span class="p-tag">AI App</span>
@@ -1600,7 +1798,7 @@
         </a>
         <a href="https://prospect-finder-olive.vercel.app/" target="_blank" rel="noopener" class="p-item">
           <div class="p-item-inner">
-            <img src="prospector-screenshot.png" alt="Prospect Finder" />
+            <img src="prospector-screenshot.webp" alt="Prospect Finder" />
             <div class="p-overlay"></div>
             <div class="p-info">
               <span class="p-tag">SaaS Tool</span>
@@ -1615,7 +1813,7 @@
       <div class="portfolio-grid-desktop">
         <!-- Large feature -->
         <a href="https://pawchart-lac.vercel.app/" target="_blank" rel="noopener" class="p-item" style="grid-column:span 7;aspect-ratio:16/10;position:relative;">
-          <img style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 0.5s ease;" src="pawchart-screenshot.png" alt="PawChart" />
+          <img style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 0.5s ease;" src="pawchart-screenshot.webp" alt="PawChart" />
           <div class="p-overlay"></div>
           <div class="p-info">
             <span class="p-tag">SaaS Prototype</span>
@@ -1627,7 +1825,7 @@
         <div style="grid-column:span 5;display:flex;flex-direction:column;gap:var(--s3);">
           <a href="https://the-enchanted-rosie.vercel.app/" target="_blank" rel="noopener" class="p-item" style="flex:1;">
             <div class="p-item-inner" style="padding-top:62%;">
-              <img style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 5%;transition:transform 0.5s ease;" src="enchanted-rosie-screenshot.png" alt="Enchanted Rosie" />
+              <img style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 5%;transition:transform 0.5s ease;" src="enchanted-rosie-screenshot.webp" alt="Enchanted Rosie" />
               <div class="p-overlay"></div>
               <div class="p-info">
                 <span class="p-tag">E-Commerce</span>
@@ -1638,7 +1836,7 @@
           </a>
           <a href="https://job-hunter-theta-tan.vercel.app/" target="_blank" rel="noopener" class="p-item" style="flex:1;">
             <div class="p-item-inner" style="padding-top:62%;">
-              <img style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 0.5s ease;" src="job-hunter-screenshot.png" alt="Job Hunter" />
+              <img style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 0.5s ease;" src="job-hunter-screenshot.webp" alt="Job Hunter" />
               <div class="p-overlay"></div>
               <div class="p-info">
                 <span class="p-tag">AI App</span>
@@ -1650,7 +1848,7 @@
         </div>
         <!-- Bottom row -->
         <a href="https://prospect-finder-olive.vercel.app/" target="_blank" rel="noopener" class="p-item" style="grid-column:span 4;aspect-ratio:4/3;position:relative;">
-          <img style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 0.5s ease;" src="prospector-screenshot.png" alt="Prospect Finder" />
+          <img style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 0.5s ease;" src="prospector-screenshot.webp" alt="Prospect Finder" />
           <div class="p-overlay"></div>
           <div class="p-info">
             <span class="p-tag">SaaS Tool</span>
@@ -1659,7 +1857,7 @@
           </div>
         </a>
         <a href="https://barnabys-test.vercel.app/" target="_blank" rel="noopener" class="p-item" style="grid-column:span 4;aspect-ratio:4/3;position:relative;">
-          <img style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 0.5s ease;" src="barnabys-screenshot.png" alt="Barnabys Restaurant" />
+          <img style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 0.5s ease;" src="barnabys-screenshot.webp" alt="Barnabys Restaurant" />
           <div class="p-overlay"></div>
           <div class="p-info">
             <span class="p-tag">Restaurant / Events</span>
@@ -1668,7 +1866,7 @@
           </div>
         </a>
         <a href="/portfolio.html" class="p-item" style="grid-column:span 4;aspect-ratio:4/3;position:relative;">
-          <img style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 0.5s ease;" src="gabrielles-screenshot.png" alt="Gabrielle Design" />
+          <img style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 0.5s ease;" src="gabrielles-screenshot.webp" alt="Gabrielle Design" />
           <div class="p-overlay"></div>
           <div class="p-info">
             <span class="p-tag">Portfolio / Brand</span>
@@ -1912,13 +2110,128 @@
   </section>
 
 
+  <!-- ════ CONTACT FORM ════ -->
+  <!-- Formspree: replace YOUR_FORM_ID with your form ID from formspree.io (free plan works) -->
+  <section id="contact-form" class="contact-section">
+    <div class="contact-inner">
+
+      <div class="contact-header fade-up">
+        <span class="label">Get In Touch</span>
+        <h2>Start Your <span class="grad-text">Project</span></h2>
+        <p>Tell us about your business and what you're looking to achieve. We'll get back to you within 24 hours.</p>
+      </div>
+
+      <div class="contact-body">
+
+        <!-- Contact info column -->
+        <div class="contact-info">
+          <div class="contact-detail">
+            <div class="contact-detail-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div class="contact-detail-text">
+              <strong>Email</strong>
+              <a href="mailto:fletchmediacollective@gmail.com">fletchmediacollective@gmail.com</a>
+            </div>
+          </div>
+          <div class="contact-detail">
+            <div class="contact-detail-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div class="contact-detail-text">
+              <strong>Response Time</strong>
+              <span>Within 24 hours</span>
+            </div>
+          </div>
+          <div class="contact-detail">
+            <div class="contact-detail-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div class="contact-detail-text">
+              <strong>Based In</strong>
+              <span>Auckland, New Zealand</span>
+            </div>
+          </div>
+          <div class="contact-detail">
+            <div class="contact-detail-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div class="contact-detail-text">
+              <strong>Free Consultation</strong>
+              <span>No commitment required</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form card -->
+        <div class="contact-form-card">
+          <form id="contactForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="cf-name">Your Name</label>
+                <input class="form-input" id="cf-name" name="name" type="text" placeholder="Jane Smith" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="cf-email">Email Address</label>
+                <input class="form-input" id="cf-email" name="email" type="email" placeholder="jane@yourbusiness.com" required />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="cf-type">Project Type</label>
+                <select class="form-select" id="cf-type" name="project_type">
+                  <option value="" disabled selected>Select one…</option>
+                  <option>New Website</option>
+                  <option>Website Redesign</option>
+                  <option>Landing Page</option>
+                  <option>E-Commerce</option>
+                  <option>SEO / Performance</option>
+                  <option>Other</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="cf-budget">Budget Range</label>
+                <select class="form-select" id="cf-budget" name="budget">
+                  <option value="" disabled selected>Select one…</option>
+                  <option>Under $1,500</option>
+                  <option>$1,500 – $3,000</option>
+                  <option>$3,000 – $6,000</option>
+                  <option>$6,000+</option>
+                  <option>Not sure yet</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="cf-message">Tell Us About Your Project</label>
+                <textarea class="form-textarea" id="cf-message" name="message" placeholder="What does your business do? What's the goal for the site? Any existing website or references you like?" required></textarea>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary form-submit">Send Message &rarr;</button>
+          </form>
+
+          <!-- Success state -->
+          <div class="contact-success" id="contactSuccess">
+            <div class="contact-success-icon">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <h3>Message Sent!</h3>
+            <p>Thanks for reaching out. We'll be in touch within 24 hours.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
   <!-- ════ FOOTER ════ -->
   <footer class="footer">
     <div class="footer-inner">
       <div class="footer-grid">
         <div>
-          <a href="#" class="footer-logo">
-            <img src="brand_assets/logo.png" alt="FMC Logo" />
+          <a href="#hero" class="footer-logo" aria-label="Fletch Media Collective — back to top">
+            <img src="brand_assets/logo.webp" alt="FMC Logo" />
             <div class="footer-wordmark">FLETCH<span>Media Collective</span></div>
           </a>
           <p style="color:var(--muted);font-size:0.87rem;line-height:1.7;max-width:320px;">Websites that earn trust, start conversations, and convert visitors into clients — for businesses ready to grow.</p>
@@ -1982,6 +2295,58 @@
       if (img) img.style.transform = 'scale(1)';
     });
   });
+
+  // ── Contact form submission ──────────────────────────────────────────
+  const contactForm    = document.getElementById('contactForm');
+  const contactSuccess = document.getElementById('contactSuccess');
+
+  if (contactForm) {
+    contactForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const btn = contactForm.querySelector('button[type="submit"]');
+      btn.disabled = true;
+      btn.textContent = 'Sending…';
+
+      function fallbackToEmail() {
+        const data = new FormData(contactForm);
+        const subject = encodeURIComponent('New project inquiry from ' + (data.get('name') || 'website visitor'));
+        const bodyLines = [
+          'Name: ' + (data.get('name') || ''),
+          'Email: ' + (data.get('email') || ''),
+          'Project type: ' + (data.get('project_type') || ''),
+          'Budget: ' + (data.get('budget') || ''),
+          '',
+          data.get('message') || ''
+        ];
+        const body = encodeURIComponent(bodyLines.join('\n'));
+        window.location.href = 'mailto:fletchmediacollective@gmail.com?subject=' + subject + '&body=' + body;
+        btn.disabled = false;
+        btn.textContent = 'Send Message →';
+      }
+
+      // Formspree isn't configured yet (placeholder ID) — go straight to the email fallback.
+      if (contactForm.action.indexOf('YOUR_FORM_ID') !== -1) {
+        fallbackToEmail();
+        return;
+      }
+
+      try {
+        const res = await fetch(contactForm.action, {
+          method: 'POST',
+          body: new FormData(contactForm),
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          contactForm.style.display = 'none';
+          contactSuccess.style.display = 'block';
+        } else {
+          fallbackToEmail();
+        }
+      } catch {
+        fallbackToEmail();
+      }
+    });
+  }
 </script>
 </body>
 </html>
