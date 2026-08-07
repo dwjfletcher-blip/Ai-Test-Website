@@ -745,6 +745,44 @@
       font-style: normal;
       margin-bottom: 0;
     }
+    .guarantee .testimonial-card:not(.guarantee-hero) .testimonial-result {
+      display: inline-block;
+      margin-right: 2.4rem;
+    }
+    .guarantee .guarantee-hero {
+      border-color: rgba(255,106,0,0.45);
+      background:
+        radial-gradient(ellipse 70% 90% at 50% 0%, rgba(255,106,0,0.14) 0%, transparent 60%),
+        linear-gradient(140deg, rgba(13,34,68,0.75) 0%, rgba(6,14,28,0.95) 100%);
+      box-shadow: 0 0 44px rgba(255,106,0,0.13), 0 18px 44px rgba(0,0,0,0.45);
+      text-align: center;
+      padding: var(--s5) var(--s4);
+    }
+    .guarantee .guarantee-hero::before { content: none; }
+    .guarantee .guarantee-hero:hover { border-color: rgba(255,106,0,0.65); }
+    .guarantee-hero-title {
+      font-size: clamp(1.35rem, 4.5vw, 2rem);
+      font-weight: 800;
+      margin: var(--s2) 0 var(--s2);
+    }
+    .guarantee .guarantee-hero .testimonial-quote {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .cta-microcopy {
+      margin-top: 0.85rem;
+      font-size: 0.75rem;
+      color: rgba(107,141,181,0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+    }
+    .cta-microcopy .tick {
+      color: var(--amber-light);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+    }
     .testimonial-author {
       display: flex;
       align-items: center;
@@ -1471,6 +1509,8 @@
         grid-template-columns: repeat(3, 1fr);
         gap: var(--s3);
       }
+      .guarantee .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
+      .guarantee .guarantee-hero { grid-column: 1 / -1; }
 
       .discovery-grid { grid-template-columns: repeat(3, 1fr); }
 
@@ -1643,6 +1683,7 @@
           <a href="https://calendly.com/fletchmediacollective/30min" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-pulse"><span class="btn-label"><span class="btn-word">Book a</span><span class="btn-free-wrap"><span class="btn-free">Free&nbsp;</span></span><span class="btn-word">30-Min Call</span></span></a>
           <a href="#work" class="btn btn-outline">See My Work</a>
         </div>
+        <p class="cta-microcopy fade-up fade-up-delay-2" style="animation-delay:1.8s;"><span class="tick">✓</span> You pay nothing until you approve the design</p>
         <div class="hero-stats fade-up fade-up-delay-3" style="animation-delay:1.9s;">
           <div>
             <div class="hero-stat-val">48hr</div>
@@ -1929,8 +1970,9 @@
 
       <div class="testimonials-grid">
 
-        <div class="testimonial-card">
-          <div class="testimonial-result">$0 until you love the design</div>
+        <div class="testimonial-card guarantee-hero">
+          <div class="testimonial-result">The Big One</div>
+          <h3 class="guarantee-hero-title">You Pay <span class="grad-text">$0</span> Until You Love the Design.</h3>
           <p class="testimonial-quote">We start with a free call and a fixed-price proposal. Then I design your homepage concept first — if it's not something you're proud to put your name on, you walk away owing nothing.</p>
         </div>
 
@@ -1991,7 +2033,7 @@
         <a href="https://calendly.com/fletchmediacollective/30min" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Book My Free Discovery Call</a>
         <p class="discovery-note">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          No sales pressure &middot; No obligation &middot; Custom quote within 48 hours
+          No sales pressure &middot; Custom quote in 48 hours &middot; Pay nothing until you approve the design
         </p>
       </div>
     </div>
@@ -2054,7 +2096,7 @@
       </div>
       <p class="cta-trust-note">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        No sales pressure. No obligation. Just an honest conversation about your project.
+        No sales pressure. No obligation. You pay nothing until you approve the design.
       </p>
     </div>
   </section>
