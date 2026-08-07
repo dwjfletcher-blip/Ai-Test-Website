@@ -1,0 +1,17 @@
+node_modules/
+temporary screenshots/
+.claude/
+
+# Internal docs — must not be publicly reachable
+docs/
+
+# Local dev tooling and source material, not part of the site
+brand_assets_backup_originals/
+my-video/
+myvideonew/
+nichols-deploy/
+prospect-finder-deploy/
+*.mjs
+package.json
+package-lock.json
+CLAUDE.md
