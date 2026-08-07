@@ -733,6 +733,18 @@
       margin-bottom: var(--s3);
       font-style: italic;
     }
+    .guarantee .testimonial-card::before {
+      content: '\2713';
+      font-family: 'Montserrat', sans-serif;
+      font-size: 2rem;
+      font-weight: 800;
+      color: rgba(255,106,0,0.35);
+      top: 1.1rem; right: 1.3rem;
+    }
+    .guarantee .testimonial-quote {
+      font-style: normal;
+      margin-bottom: 0;
+    }
     .testimonial-author {
       display: flex;
       align-items: center;
@@ -1633,18 +1645,18 @@
         </div>
         <div class="hero-stats fade-up fade-up-delay-3" style="animation-delay:1.9s;">
           <div>
-            <div class="hero-stat-val" data-count="50" data-suffix="+">50+</div>
-            <div class="hero-stat-label">Sites Launched</div>
+            <div class="hero-stat-val">48hr</div>
+            <div class="hero-stat-label">Fixed-Price Proposal</div>
           </div>
           <div class="stat-divider"></div>
           <div>
-            <div class="hero-stat-val" data-count="3" data-suffix="M+">3M+</div>
-            <div class="hero-stat-label">Views Generated</div>
+            <div class="hero-stat-val">2–4wk</div>
+            <div class="hero-stat-label">Concept to Launch</div>
           </div>
           <div class="stat-divider"></div>
           <div>
-            <div class="hero-stat-val" data-count="98" data-suffix="%">98%</div>
-            <div class="hero-stat-label">Client Retention</div>
+            <div class="hero-stat-val">$0</div>
+            <div class="hero-stat-label">Until You Love the Design</div>
           </div>
         </div>
       </div>
@@ -1722,32 +1734,6 @@
   </script>
 
 
-  <!-- ════ TRUST STRIP ════ -->
-  <div class="trust-strip">
-    <p class="trust-strip-label">Trusted by local businesses &amp; growing brands</p>
-    <div class="trust-marquee-wrap">
-      <div class="trust-marquee">
-        <!-- Set 1 -->
-        <span class="trust-client"><span class="trust-client-dot"></span>Barnabys Restaurant</span>
-        <span class="trust-client"><span class="trust-client-dot"></span>Gray Photography</span>
-        <span class="trust-client"><span class="trust-client-dot"></span>Nichols Pool Service</span>
-        <span class="trust-client"><span class="trust-client-dot"></span>Enchanted Rosie</span>
-        <span class="trust-client"><span class="trust-client-dot"></span>Gabrielle Design</span>
-        <span class="trust-client"><span class="trust-client-dot"></span>PawChart</span>
-        <span class="trust-client"><span class="trust-client-dot"></span>Prospect Finder</span>
-        <!-- Set 2 (duplicate for seamless loop) -->
-        <span class="trust-client"><span class="trust-client-dot"></span>Barnabys Restaurant</span>
-        <span class="trust-client"><span class="trust-client-dot"></span>Gray Photography</span>
-        <span class="trust-client"><span class="trust-client-dot"></span>Nichols Pool Service</span>
-        <span class="trust-client"><span class="trust-client-dot"></span>Enchanted Rosie</span>
-        <span class="trust-client"><span class="trust-client-dot"></span>Gabrielle Design</span>
-        <span class="trust-client"><span class="trust-client-dot"></span>PawChart</span>
-        <span class="trust-client"><span class="trust-client-dot"></span>Prospect Finder</span>
-      </div>
-    </div>
-  </div>
-
-
   <!-- ════ PORTFOLIO ════ -->
   <section id="work" class="portfolio-section">
     <div class="portfolio-inner">
@@ -1755,7 +1741,7 @@
         <div class="portfolio-header-row">
           <div>
             <span class="label">My Work</span>
-            <h2>Results Speak<br />Louder Than Claims.</h2>
+            <h2>Don't Take My Word.<br />Click Through It.</h2>
           </div>
           <a href="/portfolio.html" class="btn btn-primary">View All Projects</a>
         </div>
@@ -1865,13 +1851,11 @@
             <p class="p-desc">Full multi-page site with menus, events & private dining</p>
           </div>
         </a>
-        <a href="/portfolio.html" class="p-item" style="grid-column:span 4;aspect-ratio:4/3;position:relative;">
-          <img style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 0.5s ease;" src="gabrielles-screenshot.webp" alt="Gabrielle Design" />
-          <div class="p-overlay"></div>
-          <div class="p-info">
-            <span class="p-tag">Portfolio / Brand</span>
-            <h3>Gabrielle Design</h3>
-            <p class="p-desc">Personal brand site with booking</p>
+        <a href="/portfolio.html" class="p-item" style="grid-column:span 4;aspect-ratio:4/3;position:relative;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse 80% 80% at 50% 40%, rgba(255,106,0,0.12) 0%, transparent 70%), var(--navy);">
+          <div style="text-align:center;padding:var(--s3);">
+            <div class="label" style="margin-bottom:var(--s2);display:block;">More Projects</div>
+            <h3 style="font-size:1.3rem;font-weight:800;color:var(--white);margin-bottom:var(--s2);">See the Full<br /><span class="grad-text">Portfolio</span></h3>
+            <span class="btn btn-outline" style="font-size:0.7rem;padding:0.7rem 1.4rem;">View All Projects</span>
           </div>
         </a>
       </div>
@@ -1879,7 +1863,7 @@
       <!-- Post-work CTA -->
       <div class="work-cta-band">
         <p>Working on something similar?</p>
-        <p class="sub">Every project above was built for a real business with real goals. Let's talk about yours.</p>
+        <p class="sub">Every project above is live. Click through, poke around, and judge the work for yourself — then let's talk about yours.</p>
         <a href="https://calendly.com/fletchmediacollective/30min" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="font-size:0.8rem;padding:1rem 2.5rem;">
           Let's Scope Your Project
         </a>
@@ -1933,72 +1917,31 @@
   </section>
 
 
-  <!-- ════ TESTIMONIALS ════ -->
-  <section class="testimonials-section">
+  <!-- ════ GUARANTEE ════ -->
+  <section class="testimonials-section guarantee">
     <div class="testimonials-inner">
       <div class="section-header">
-        <span class="label">Client Results</span>
-        <h2>What Happens After<br />I Build Your Site.</h2>
+        <span class="label">The Guarantee</span>
+        <h2>New Studio. No Fine Print.<br />All the Risk Is on Me.</h2>
         <div class="divider-bar"></div>
+        <p>I'm building this studio one happy client at a time — which means I can't afford to let a single project go badly. Here's what that buys you.</p>
       </div>
 
       <div class="testimonials-grid">
 
         <div class="testimonial-card">
-          <div class="stars">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          </div>
-          <div class="testimonial-result">Phone leads up 3x in 60 days</div>
-          <p class="testimonial-quote">"We had an old site that hadn't been touched in years. Fletch built us something that actually looks like our brand and now customers call us right off the website. Night and day difference."</p>
-          <div class="testimonial-author">
-            <div class="testimonial-avatar">MR</div>
-            <div>
-              <div class="testimonial-name">Mike R.</div>
-              <div class="testimonial-role">Owner, Nichols Pool Service</div>
-            </div>
-          </div>
+          <div class="testimonial-result">$0 until you love the design</div>
+          <p class="testimonial-quote">We start with a free call and a fixed-price proposal. Then I design your homepage concept first — if it's not something you're proud to put your name on, you walk away owing nothing.</p>
         </div>
 
         <div class="testimonial-card">
-          <div class="stars">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          </div>
-          <div class="testimonial-result">Booking inquiries doubled in first month</div>
-          <p class="testimonial-quote">"Fletch understood the vibe I was going for instantly. The site looks incredible and my clients always compliment it. More importantly — I started getting serious inquiries the week it launched."</p>
-          <div class="testimonial-author">
-            <div class="testimonial-avatar">GD</div>
-            <div>
-              <div class="testimonial-name">Gabrielle D.</div>
-              <div class="testimonial-role">Freelance Designer</div>
-            </div>
-          </div>
+          <div class="testimonial-result">The quoted price is the final price</div>
+          <p class="testimonial-quote">No hourly billing, no surprise line items, no scope creep. The number in your proposal is the number on your invoice — it only changes if you ask for more.</p>
         </div>
 
         <div class="testimonial-card">
-          <div class="stars">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          </div>
-          <div class="testimonial-result">Launched on time, on budget, zero surprises</div>
-          <p class="testimonial-quote">"What I appreciated most was the transparency. Fixed price upfront, clear timeline, and they actually delivered faster than expected. The site has been getting non-stop compliments from our regulars."</p>
-          <div class="testimonial-author">
-            <div class="testimonial-avatar">BM</div>
-            <div>
-              <div class="testimonial-name">Brian M.</div>
-              <div class="testimonial-role">Manager, Barnabys Restaurant</div>
-            </div>
-          </div>
+          <div class="testimonial-result">You talk to the person building it</div>
+          <p class="testimonial-quote">No account managers, no handoffs, no telephone game. Every call, email, and revision goes straight to me — the person actually writing the code.</p>
         </div>
 
       </div>
@@ -2038,8 +1981,8 @@
           <div class="discovery-icon">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
           </div>
-          <h3>You Decide. No Commitment.</h3>
-          <p>Review the proposal on your own time. If it's not the right fit, no hard feelings. I'd rather you find the right partner than pressure you into something that isn't a match.</p>
+          <h3>You Decide. Zero Risk.</h3>
+          <p>Review the proposal on your own time. And even after we start, you pay nothing until you've seen and loved your homepage design — if it's not right, you walk away owing $0.</p>
         </div>
 
       </div>
@@ -2058,10 +2001,10 @@
   <!-- ════ STATS ════ -->
   <section class="stats-section">
     <div class="stats-inner">
-      <div class="stat-card"><div class="stat-number">50+</div><div class="stat-label">Sites Launched</div></div>
-      <div class="stat-card"><div class="stat-number">3M+</div><div class="stat-label">Views Generated</div></div>
-      <div class="stat-card"><div class="stat-number">98%</div><div class="stat-label">Client Retention</div></div>
-      <div class="stat-card"><div class="stat-number">5★</div><div class="stat-label">Average Rating</div></div>
+      <div class="stat-card"><div class="stat-number">48hr</div><div class="stat-label">Call to Fixed-Price Proposal</div></div>
+      <div class="stat-card"><div class="stat-number">2–4wk</div><div class="stat-label">Concept to Launch</div></div>
+      <div class="stat-card"><div class="stat-number">100%</div><div class="stat-label">Custom-Coded, No Templates</div></div>
+      <div class="stat-card"><div class="stat-number">1</div><div class="stat-label">Point of Contact, Start to Finish</div></div>
     </div>
   </section>
 
@@ -2072,9 +2015,16 @@
       <div class="about-content">
         <span class="label">Who I Am</span>
         <h2>Built by Someone Who<br /><span class="grad-text">Actually Cares.</span></h2>
+        <div style="display:flex;align-items:center;gap:1rem;margin:var(--s3) 0;">
+          <img src="brand_assets/david-headshot.webp" alt="David Fletcher, founder of Fletcher Web Studio" width="84" height="84" loading="lazy" style="width:84px;height:84px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,106,0,0.5);box-shadow:0 0 24px rgba(255,106,0,0.25), 0 8px 24px rgba(0,0,0,0.45);flex-shrink:0;" />
+          <div>
+            <div style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:1.05rem;color:var(--white);letter-spacing:-0.01em;">David Fletcher</div>
+            <div class="label" style="font-size:0.62rem;margin-top:3px;">Founder &amp; Developer</div>
+          </div>
+        </div>
         <p>I'm David Fletcher, the developer behind Fletcher Web Studio — a one-person shop built for businesses that are serious about growth. No agency layers, no account managers, no inflated retainers. Just me, building, launching, and sticking around.</p>
         <p>Every site I deliver is built with a clear purpose: to turn the right visitors into paying clients. That means smart structure, persuasive copy, fast load times, and a design that earns trust in the first few seconds.</p>
-        <p>I've worked with restaurants, photographers, service businesses, SaaS tools, and everything in between — based in the Philadelphia suburbs and working with clients remotely. If you have a real business and a real goal, I want to help you build something worth showing off.</p>
+        <p>I've built everything from restaurant sites to e-commerce stores to full SaaS products — based in the Philadelphia suburbs, working with businesses anywhere. If you have a real business and a real goal, I want to help you build something worth showing off.</p>
         <div class="about-tags">
           <span class="about-tag">Web Design</span>
           <span class="about-tag">Brand Identity</span>
