@@ -314,6 +314,21 @@
       gap: var(--s3);
     }
 
+    .section-divider {
+      margin: var(--s6) 0 var(--s4);
+      padding-top: var(--s4);
+      border-top: 1px solid rgba(255,255,255,0.09);
+    }
+    .section-divider--first { margin-top: 0; padding-top: 0; border-top: none; }
+    .section-divider .label { display: block; margin-bottom: var(--s1); }
+    .section-divider-note {
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.55);
+      max-width: 46ch;
+      margin: 0;
+    }
+
     .project-card {
       background: rgba(10,26,47,0.65);
       border: 1px solid rgba(255,106,0,0.1);
@@ -649,7 +664,7 @@
   <header class="page-hero">
     <span class="label fade-up">My Work</span>
     <h1 class="fade-up fade-up-delay-1">See the Work.<br /><span class="grad-text">Judge for Yourself.</span></h1>
-    <p class="fade-up fade-up-delay-1">Product builds, e-commerce sites, and concept work for real local businesses — every project below is live and clickable. Clean code, sharp design, built like it's going to production.</p>
+    <p class="fade-up fade-up-delay-1">Websites for restaurants, trades, salons, and shops — plus a few concept builds for real local businesses. Every project below is live and clickable, so you can judge the work instead of taking my word for it.</p>
     <div class="page-hero-ctas fade-up fade-up-delay-2">
       <a href="https://calendly.com/dwj-fletcher/30min" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Book a Free Call</a>
       <a href="/#contact-form" class="btn btn-outline">Start Your Project</a>
@@ -659,6 +674,12 @@
   <!-- ════ PROJECTS ════ -->
   <section class="projects-section">
     <div class="projects-inner">
+
+      <div class="section-divider section-divider--first">
+        <span class="label">Local Business Websites</span>
+        <p class="section-divider-note">Restaurants, trades, salons, and shops &mdash; the work that shows what your business could look like.</p>
+      </div>
+
       <div class="project-grid">
 
         <!-- Barnaby's -->
@@ -681,25 +702,98 @@
           </div>
         </article>
 
-        <!-- Enchanted Rosie -->
+        <!-- Putt-Putt Fun Center -->
         <article class="project-card reveal">
           <div class="project-image">
-            <img src="enchanted-rosie-screenshot.webp" alt="The Enchanted Rosie e-commerce site" style="object-position:50% 5%;" />
+            <img src="puttputt-screenshot.webp" alt="Putt-Putt Fun Center website" />
             <div class="project-image-overlay"></div>
           </div>
           <div class="project-body">
             <div class="project-tags">
-              <span class="project-tag">E-Commerce</span>
-              <span class="project-tag">Small Business</span>
+              <span class="project-tag">Concept Build</span>
+              <span class="project-tag">Family Entertainment</span>
+              <span class="project-tag">Multi-Page</span>
             </div>
-            <h3 class="project-title">The Enchanted Rosie</h3>
-            <p class="project-desc">Custom e-commerce site for a small accessories brand selling magical bag charms. Deep purple and gold branding, luxury typography, and a full product showcase — built from scratch to match the client's aesthetic exactly.</p>
-            <a href="https://the-enchanted-rosie.vercel.app/" target="_blank" rel="noopener" class="project-link">
+            <h3 class="project-title">Putt-Putt Fun Center</h3>
+            <p class="project-desc">Five-page site for a mini golf and arcade center in Clifton Heights, PA. Covers attractions, birthday party packages, weekly specials, hours, and contact — with per-item pricing published on the page rather than hidden behind a form.</p>
+            <a href="https://puttputt-fun-center.vercel.app/" target="_blank" rel="noopener" class="project-link">
               View Site
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a>
           </div>
         </article>
+
+        <!-- Esthie Bestie CAS -->
+        <article class="project-card reveal">
+          <div class="project-image">
+            <img src="esthie-screenshot.webp" alt="Esthie Bestie CAS lash studio website" />
+            <div class="project-image-overlay"></div>
+          </div>
+          <div class="project-body">
+            <div class="project-tags">
+              <span class="project-tag">Concept Build</span>
+              <span class="project-tag">Salon</span>
+              <span class="project-tag">Booking-Focused</span>
+            </div>
+            <h3 class="project-title">Esthie Bestie CAS</h3>
+            <p class="project-desc">Site for a lash extension artist in Delaware County, PA. Classic, hybrid, and volume services with published starting prices, a prepaid fill bundle with its own pricing tiers, a referral offer, and a booking call-to-action on every screen.</p>
+            <a href="https://esthie-bestie-cas.vercel.app/" target="_blank" rel="noopener" class="project-link">
+              View Site
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </article>
+
+        <!-- Nichols Pool Service -->
+        <article class="project-card reveal">
+          <div class="project-image">
+            <img src="nichols-screenshot.webp" alt="Nichols Pool Service website" />
+            <div class="project-image-overlay"></div>
+          </div>
+          <div class="project-body">
+            <div class="project-tags">
+              <span class="project-tag">Concept Build</span>
+              <span class="project-tag">Trades</span>
+              <span class="project-tag">Home Service</span>
+            </div>
+            <h3 class="project-title">Nichols Pool Service</h3>
+            <p class="project-desc">Site for a family-run pool company in Bucks County, PA. Weekly valet service, seasonal openings and closings, automation, and safety covers — with a before-and-after gallery for vinyl liner replacements.</p>
+            <a href="https://nichols-deploy.vercel.app/" target="_blank" rel="noopener" class="project-link">
+              View Site
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </article>
+
+        <!-- Michael Harris Real Estate -->
+        <article class="project-card reveal">
+          <div class="project-image">
+            <img src="michael-harris-screenshot.webp" alt="Michael Harris real estate website" />
+            <div class="project-image-overlay"></div>
+          </div>
+          <div class="project-body">
+            <div class="project-tags">
+              <span class="project-tag">Concept Build</span>
+              <span class="project-tag">Professional Services</span>
+            </div>
+            <h3 class="project-title">Michael Harris Real Estate</h3>
+            <p class="project-desc">Concept build for a Delaware County real estate agent. Six pages covering listings with filters, an about page, a market-update blog with a post template, and a lead-capture contact form with client-side validation.</p>
+            <a href="https://michael-harris-re.vercel.app/" target="_blank" rel="noopener" class="project-link">
+              View Site
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </article>
+
+      </div>
+
+      <!-- ── Tools & Prototypes ── -->
+      <div class="section-divider">
+        <span class="label">Tools &amp; Prototypes</span>
+        <p class="section-divider-note">Not websites for local businesses — product work, built to see whether an idea holds up.</p>
+      </div>
+
+      <div class="project-grid">
 
         <!-- PawChart -->
         <article class="project-card reveal">
@@ -716,46 +810,6 @@
             <p class="project-desc">A "Carfax for dogs" — a complete, private health record app that follows the dog, not the owner. Five-page interactive prototype covering the full product flow: waitlist landing, dashboard, dog profile, add record, and permissions management.</p>
             <a href="https://pawchart-lac.vercel.app/" target="_blank" rel="noopener" class="project-link">
               View Prototype
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </a>
-          </div>
-        </article>
-
-        <!-- Job Hunter -->
-        <article class="project-card reveal">
-          <div class="project-image">
-            <img src="job-hunter-screenshot.webp" alt="Job Hunter AI web app" />
-            <div class="project-image-overlay"></div>
-          </div>
-          <div class="project-body">
-            <div class="project-tags">
-              <span class="project-tag">AI App</span>
-              <span class="project-tag">Full-Stack</span>
-            </div>
-            <h3 class="project-title">Job Hunter</h3>
-            <p class="project-desc">An AI-powered job search assistant that parses your resume, matches it against live job listings, and rewrites your resume for each application — tailored to the exact role and powered by Claude.</p>
-            <a href="https://job-hunter-theta-tan.vercel.app/" target="_blank" rel="noopener" class="project-link">
-              View App
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </a>
-          </div>
-        </article>
-
-        <!-- Prospect Finder -->
-        <article class="project-card reveal">
-          <div class="project-image">
-            <img src="prospector-screenshot.webp" alt="Prospect Finder web app" />
-            <div class="project-image-overlay"></div>
-          </div>
-          <div class="project-body">
-            <div class="project-tags">
-              <span class="project-tag">SaaS Tool</span>
-              <span class="project-tag">Full-Stack</span>
-            </div>
-            <h3 class="project-title">Prospect Finder</h3>
-            <p class="project-desc">A full-stack lead generation tool that pulls local business data from OpenStreetMap and scores prospects 0 to 100 on how likely they are to need a website. Ranks by opportunity so outreach is targeted and data-backed.</p>
-            <a href="https://prospect-finder-olive.vercel.app/" target="_blank" rel="noopener" class="project-link">
-              View App
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a>
           </div>
