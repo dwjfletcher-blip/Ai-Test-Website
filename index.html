@@ -253,7 +253,8 @@
     .nav-logo img {
       height: 36px; width: 36px;
       object-fit: cover;
-      border-radius: 7px;
+      /* top-left square to match the mark's cut corner */
+      border-radius: 0 7px 7px 7px;
       box-shadow: 0 0 14px rgba(255,106,0,0.3);
     }
     .nav-wordmark {
@@ -464,7 +465,7 @@
       /* The F is knocked out of the tile, so a navy plate behind it keeps the
          letter solid instead of letting the hero photo show through. */
       background: var(--navy-dark);
-      border-radius: 20%;
+      border-radius: 0 20% 20% 20%;
       /* drop-shadow follows the alpha, unlike box-shadow which would glow
          around the element's square box */
       filter:
@@ -1124,7 +1125,7 @@
     .footer-logo img {
       height: 40px; width: 40px;
       object-fit: cover;
-      border-radius: 8px;
+      border-radius: 0 8px 8px 8px;
       box-shadow: 0 0 14px rgba(255,106,0,0.25);
     }
     .footer-wordmark {

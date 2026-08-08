@@ -1,0 +1,79 @@
+<meta charset="utf-8">
+<title>Fletcher Web Studio — refinement round</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&family=Roboto+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root { --navy:#060E1C; --amber:#FF6A00; --muted:#6B8DB5; }
+  body { margin:0; background:#0A1A2F; color:#fff; font-family:Montserrat,sans-serif; padding:40px; }
+  h1 { font-size:22px; letter-spacing:-0.02em; margin:0 0 6px; }
+  .sub { color:var(--muted); font-size:13px; font-family:'Roboto Mono',monospace; margin-bottom:36px; }
+  h2 { font-size:15px; margin:0 0 4px; }
+  .note { color:var(--muted); font-size:12.5px; line-height:1.6; margin:0 0 14px; max-width:760px; }
+  .row { margin-bottom:34px; }
+  .band { display:flex; align-items:center; gap:38px; padding:26px 30px; border-radius:12px; }
+  .dark { background:var(--navy); }
+  .light { background:#fff; margin-top:10px; }
+  .cell { text-align:center; }
+  .cap { font-family:'Roboto Mono',monospace; font-size:9.5px; letter-spacing:0.1em; color:var(--muted); margin-top:8px; }
+  .light .cap { color:#7A8FAD; }
+  .plate { background:var(--navy); border-radius:20%; display:block; }
+  .light .plate { background:var(--navy); }
+  .nav { margin-left:auto; display:flex; align-items:center; gap:10px;
+         background:rgba(6,14,28,0.92); padding:11px 16px; border-radius:8px;
+         border:1px solid rgba(255,106,0,0.12); }
+  .nav .wm { font-weight:800; font-size:13px; letter-spacing:0.05em; line-height:1; }
+  .nav .wm span { display:block; font-weight:400; font-size:8px; letter-spacing:0.18em;
+                  color:#FF9A3C; margin-top:3px; }
+  .pix { image-rendering:pixelated; }
+</style>
+<h1>Refinement round — evolving the shipped tile</h1>
+<p class="sub">LIVE = what is on the site now. R1–R3 add one deliberate move each. Far right of each band: 16px favicon magnified 8× so you can see the actual pixel grid.</p>
+
+<div id="out"></div>
+
+<script>
+const SETS = [
+  ['LIVE — shipped',
+   'The current mark. Stock geometric F, fully rounded tile. Nothing wrong with it, nothing anyone could not arrive at by accident.',
+   'M20 0 H80 A20 20 0 0 1 100 20 V80 A20 20 0 0 1 80 100 H20 A20 20 0 0 1 0 80 V20 A20 20 0 0 1 20 0 Z M28 16 H74 V30 H42 V44 H64 V58 H42 V84 H28 Z'],
+  ['R1 — cut corner',
+   'Container move only. One square corner on an otherwise rounded tile: reads subliminally as a page or browser-window corner. The letterform is untouched.',
+   'M0 0 H80 A20 20 0 0 1 100 20 V80 A20 20 0 0 1 80 100 H20 A20 20 0 0 1 0 80 Z M28 16 H74 V30 H42 V44 H64 V58 H42 V84 H28 Z'],
+  ['R2 — angled terminals',
+   'Letterform move only. Both arms cut on a matched diagonal so the F leans forward. Stops being a typeface character and starts being a drawn mark.',
+   'M20 0 H80 A20 20 0 0 1 100 20 V80 A20 20 0 0 1 80 100 H20 A20 20 0 0 1 0 80 V20 A20 20 0 0 1 20 0 Z M28 16 H76 L68 30 H42 V44 H66 L58 58 H42 V84 H28 Z'],
+  ['R3 — both',
+   'Cut corner plus angled terminals. The most designed of the four. Watch whether it starts feeling busy at small sizes.',
+   'M0 0 H80 A20 20 0 0 1 100 20 V80 A20 20 0 0 1 80 100 H20 A20 20 0 0 1 0 80 Z M28 16 H76 L68 30 H42 V44 H66 L58 58 H42 V84 H28 Z'],
+];
+const SIZES = [16, 36, 96, 200];
+
+function svg(d, size, fill) {
+  return `<svg width="${size}" height="${size}" viewBox="0 0 100 100"
+    xmlns="http://www.w3.org/2000/svg"><path fill="${fill}" fill-rule="evenodd" d="${d}"/></svg>`;
+}
+
+let html = '';
+for (const [name, note, d] of SETS) {
+  html += `<div class="row"><h2>${name}</h2><p class="note">${note}</p>`;
+  for (const mode of ['dark', 'light']) {
+    const fill = '#FF6A00';
+    html += `<div class="band ${mode}">`;
+    for (const s of SIZES) {
+      html += `<div class="cell"><div class="plate" style="width:${s}px;height:${s}px">
+        ${svg(d, s, fill)}</div><div class="cap">${s}PX</div></div>`;
+    }
+    // favicon magnified: render at 16 then scale up with pixelated rendering
+    html += `<div class="cell"><div class="plate pix" style="width:128px;height:128px;">
+      <div style="width:16px;height:16px;transform:scale(8);transform-origin:top left;">
+      ${svg(d, 16, fill)}</div></div><div class="cap">16PX &times;8</div></div>`;
+    // in-context nav strip (dark band only)
+    if (mode === 'dark') {
+      html += `<div class="nav"><div class="plate" style="width:36px;height:36px">${svg(d, 36, fill)}</div>
+        <div class="wm">FLETCHER<span>WEB STUDIO</span></div></div>`;
+    }
+    html += `</div>`;
+  }
+  html += `</div>`;
+}
+document.getElementById('out').innerHTML = html;
+</script>
