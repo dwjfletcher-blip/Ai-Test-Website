@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Fletcher Web Studio — mark exploration</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --amber:#FF6A00; --amber-lt:#FF9A3C; --navy-dk:#060E1C; --navy:#0A1A2F;
+    --white:#FFFFFF; --muted:#6B8DB5;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Montserrat,sans-serif;background:#12233b;color:#fff}
+  .wrap{max-width:1280px;margin:0 auto;padding:40px 32px 64px}
+  h1{font-weight:900;letter-spacing:-.03em;font-size:26px;margin:0 0 4px}
+  .sub{color:var(--muted);font-weight:500;font-size:14px;margin:0 0 32px}
+  .dir{margin-bottom:56px}
+  .dir h2{font-weight:900;letter-spacing:-.02em;font-size:18px;margin:0 0 2px}
+  .dir p.idea{color:var(--muted);font-weight:500;font-size:13px;margin:0 0 16px;line-height:1.6}
+  .row{display:flex;align-items:flex-end;gap:44px;padding:28px 32px;border-radius:14px}
+  .row.dark{background:var(--navy-dk)}
+  .row.light{background:#fff;margin-top:12px}
+  .cell{display:flex;flex-direction:column;align-items:center;gap:10px}
+  .cap{font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+  .row.dark .cap{color:#4A6A92}
+  .row.light .cap{color:#8FA3B8}
+  .s16{width:16px;height:16px}.s36{width:36px;height:36px}
+  .s96{width:96px;height:96px}.s400{width:400px;height:400px}
+  .zoom{image-rendering:pixelated;width:128px;height:128px}
+  .zoomwrap{padding:0;line-height:0;border:1px solid rgba(107,141,181,.35)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Fletcher Web Studio — monogram exploration</h1>
+  <p class="sub">Three directions. Amber #FF6A00 on navy #060E1C (primary) and navy on white. Far right: the 16px favicon render magnified 8&times; so the actual pixel grid is visible.</p>
+  <div id="sheets"></div>
+</div>
+
+<script>
+const DIRS = [
+  { id:'A', name:'A — Grid F',
+    idea:'A pure geometric F on a strict grid: three weights, sharp corners, nothing else. Maximum restraint, zero to misread.',
+    svg:(c)=>`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path fill="${c}" d="M22 14 H78 V29 H37 V43 H66 V58 H37 V86 H22 Z"/></svg>` },
+  { id:'B', name:'B — Tile F',
+    idea:'The F reversed out of a solid amber tile — the mark owns its square instead of floating in it, which is what the Google Business Profile slot and a favicon actually reward.',
+    svg:(c,bg)=>`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path fill="${c}" fill-rule="evenodd" d="M20 0 H80 A20 20 0 0 1 100 20 V80 A20 20 0 0 1 80 100 H20 A20 20 0 0 1 0 80 V20 A20 20 0 0 1 20 0 Z M28 16 H74 V30 H42 V44 H64 V58 H42 V84 H28 Z"/></svg>` },
+  { id:'C', name:'C — Stencil F',
+    idea:'The mid-arm is cut free of the stem by a clean stencil channel — the letter assembled from parts, a quiet nod to building a site out of components. Collapses gracefully back to a solid F at favicon size.',
+    svg:(c)=>`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path fill="${c}" d="M22 14 H78 V29 H37 V86 H22 Z"/><path fill="${c}" d="M44 43 H70 V58 H44 Z"/></svg>` },
+];
+
+const SIZES = [16,36,96,400];
+const enc = s => 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(s);
+
+function row(dir, mode){
+  const color = mode==='dark' ? '#FF6A00' : (dir.id==='B' ? '#FF6A00' : '#0A1A2F');
+  // Tile direction on light: amber tile, navy counter is knocked out -> use navy plate behind
+  let cells = SIZES.map(s=>{
+    const mark = dir.svg(color);
+    const plate = (dir.id==='B' && mode==='light')
+      ? `<span style="display:inline-block;background:#0A1A2F;border-radius:${Math.round(s*0.2)}px;font-size:0"><img class="s${s}" src="${enc(mark)}"></span>`
+      : `<img class="s${s}" src="${enc(mark)}">`;
+    return `<div class="cell">${plate}<div class="cap">${s}px</div></div>`;
+  }).join('');
+  const zoomMark = dir.svg(color);
+  cells += `<div class="cell"><div class="zoomwrap"><canvas class="zoom" data-svg="${encodeURIComponent(zoomMark)}" data-tile="${dir.id==='B'&&mode==='light'?1:0}" width="16" height="16"></canvas></div><div class="cap">16px &times;8</div></div>`;
+  return `<div class="row ${mode}">${cells}</div>`;
+}
+
+document.getElementById('sheets').innerHTML = DIRS.map(d=>`
+  <div class="dir">
+    <h2>${d.name}</h2>
+    <p class="idea">${d.idea}</p>
+    ${row(d,'dark')}
+    ${row(d,'light')}
+  </div>`).join('');
+
+// paint the 16px canvases so the magnified view shows real favicon-scale rasterisation
+const jobs = [...document.querySelectorAll('canvas.zoom')].map(cv=>new Promise(res=>{
+  const ctx = cv.getContext('2d');
+  const img = new Image();
+  img.onload = ()=>{
+    if(cv.dataset.tile==='1'){ ctx.fillStyle='#0A1A2F'; ctx.fillRect(0,0,16,16); }
+    ctx.drawImage(img,0,0,16,16); res();
+  };
+  img.onerror = res;
+  img.src = 'data:image/svg+xml;charset=utf-8,' + cv.dataset.svg;
+}));
+Promise.all(jobs).then(()=>{ document.body.dataset.ready='1'; });
+</script>
+</body>
+</html>

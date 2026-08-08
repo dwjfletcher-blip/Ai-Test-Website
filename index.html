@@ -18,7 +18,7 @@
     window.addEventListener('pageshow', jumpToTop);
   </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" type="image/webp" href="brand_assets/logo.webp" />
+  <link rel="icon" type="image/svg+xml" href="brand_assets/logo-mark.svg" />
   <title>Fletcher Web Studio — Websites for Local Businesses in the Philadelphia Suburbs</title>
   <meta name="description" content="Fletcher Web Studio builds custom websites, brand identity, and content systems for local businesses ready to grow. Fixed pricing, fast turnaround, real results." />
   <link rel="canonical" href="https://www.fletcherwebstudio.com/" />
@@ -26,11 +26,11 @@
   <meta property="og:title" content="Fletcher Web Studio — Websites for Local Businesses" />
   <meta property="og:description" content="Custom websites, brand identity, and content systems for businesses ready to grow. Transparent pricing, real results — no guesswork, no surprises." />
   <meta property="og:url" content="https://www.fletcherwebstudio.com/" />
-  <meta property="og:image" content="https://www.fletcherwebstudio.com/brand_assets/logo.webp" />
+  <meta property="og:image" content="https://www.fletcherwebstudio.com/brand_assets/og-image.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Fletcher Web Studio — Websites for Local Businesses" />
   <meta name="twitter:description" content="Custom websites, brand identity, and content systems for businesses ready to grow." />
-  <meta name="twitter:image" content="https://www.fletcherwebstudio.com/brand_assets/logo.webp" />
+  <meta name="twitter:image" content="https://www.fletcherwebstudio.com/brand_assets/og-image.png" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -40,6 +40,8 @@
     "alternateName": "Fletcher Web Studio - Web Design",
     "description": "Fletcher Web Studio builds custom websites, brand identity, and content systems for local businesses in the Philadelphia suburbs. Fixed pricing, fast turnaround, and you pay nothing until you approve the design.",
     "url": "https://www.fletcherwebstudio.com/",
+    "logo": "https://www.fletcherwebstudio.com/brand_assets/logo-mark-720.png",
+    "image": "https://www.fletcherwebstudio.com/brand_assets/og-image.png",
     "telephone": "+1-215-760-7412",
     "email": "david@fletcherwebstudio.com",
     "priceRange": "$$",
@@ -449,21 +451,26 @@
     }
     .hero-visual {
       width: 200px; height: 200px;
-      border-radius: 50%;
-      overflow: hidden;
       position: relative;
       flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     .hero-glow-bg, .hero-glow-ring { display: none; }
     .hero-logo-img {
-      width: 200px; height: 200px;
-      object-fit: cover;
-      border-radius: 50%;
+      width: 150px; height: 150px;
       display: block;
-      box-shadow:
-        0 0 50px rgba(255,106,0,0.35),
-        0 0 100px rgba(255,106,0,0.15),
-        0 20px 50px rgba(0,0,0,0.7);
+      /* The F is knocked out of the tile, so a navy plate behind it keeps the
+         letter solid instead of letting the hero photo show through. */
+      background: var(--navy-dark);
+      border-radius: 20%;
+      /* drop-shadow follows the alpha, unlike box-shadow which would glow
+         around the element's square box */
+      filter:
+        drop-shadow(0 0 40px rgba(255,106,0,0.45))
+        drop-shadow(0 0 90px rgba(255,106,0,0.2))
+        drop-shadow(0 16px 40px rgba(0,0,0,0.6));
       animation: float 5s ease-in-out infinite;
     }
 
@@ -1467,8 +1474,8 @@
     ══════════════════════════════════════════ */
     @media (max-width: 767px) {
       .hero-inner { flex-direction: column-reverse; padding: var(--s4) var(--s3) var(--s5); gap: var(--s3); }
-      .hero-visual { width: 140px; height: 140px; }
-      .hero-logo-img { width: 140px; height: 140px; }
+      .hero-visual { width: 120px; height: 120px; }
+      .hero-logo-img { width: 120px; height: 120px; }
       .hero-h1 { font-size: clamp(2rem, 9vw, 2.8rem); }
       .hero-ctas { flex-direction: column; }
       .hero-ctas .btn { flex: none; width: 100%; text-align: center; }
@@ -1545,7 +1552,7 @@
         transform: translate(-50%,-50%);
         animation: pulse-ring 3.5s ease-in-out infinite;
       }
-      .hero-logo-img { width: 460px; height: 460px; }
+      .hero-logo-img { width: 290px; height: 290px; }
       .hero-ring { display: block; }
 
       .portfolio-grid-mobile  { display: none; }
@@ -1656,7 +1663,7 @@
   <nav class="nav">
     <div class="nav-inner">
       <a href="#hero" class="nav-logo" aria-label="Fletcher Web Studio — back to top">
-        <img src="brand_assets/logo.webp" alt="Fletcher Web Studio" />
+        <img src="brand_assets/logo-mark.svg" alt="Fletcher Web Studio" />
         <div class="nav-wordmark">FLETCHER<span>Web Studio</span></div>
       </a>
 
@@ -1721,7 +1728,7 @@
         <div class="hero-glow-bg"></div>
         <div class="hero-glow-ring" style="width:380px;height:380px;"></div>
         <div class="hero-glow-ring" style="width:440px;height:440px;opacity:0.4;animation-delay:1s;"></div>
-        <img class="hero-logo-img" src="brand_assets/logo.webp" alt="Fletcher Web Studio Logo" />
+        <img class="hero-logo-img" src="brand_assets/logo-mark.svg" alt="Fletcher Web Studio Logo" />
       </div>
 
       <div class="hero-text">
@@ -2278,7 +2285,7 @@
       <div class="footer-grid">
         <div>
           <a href="#hero" class="footer-logo" aria-label="Fletcher Web Studio — back to top">
-            <img src="brand_assets/logo.webp" alt="Fletcher Web Studio Logo" />
+            <img src="brand_assets/logo-mark.svg" alt="Fletcher Web Studio Logo" />
             <div class="footer-wordmark">FLETCHER<span>Web Studio</span></div>
           </a>
           <p style="color:var(--muted);font-size:0.87rem;line-height:1.7;max-width:320px;">Websites that earn trust, start conversations, and convert visitors into clients — for businesses ready to grow.</p>
